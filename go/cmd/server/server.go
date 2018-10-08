@@ -4,6 +4,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
@@ -42,7 +43,24 @@ func (s *server) SendLogMessage(ctx context.Context, in *pb.LogMessage) (*pb.Emp
 	fmt.Printf("Log received: {%s, %d}\n", in.Message, t)
 	lm := pb.LogMessage{Message: in.Message, Time: t}
 	saveLogMessage(lm)
+	// for integration testing purposes
+	writeToFile(lm)
 	return new(pb.Empty), nil
+}
+
+func saveLogMessage(lm pb.LogMessage) {
+	mu.Lock()
+	defer mu.Unlock()
+	lms = append(lms, lm)
+}
+
+func writeToFile(lm pb.LogMessage) {
+	m := jsonpb.Marshaler{}
+	js, _ := m.MarshalToString(&lm)
+	err := ioutil.WriteFile("/tmp/bootcamp_server_last_message.txt", []byte(js), 0644)
+	if err != nil {
+        panic(err)
+    }
 }
 
 // HTTP Server
@@ -55,7 +73,6 @@ func startHTTP() error {
 func handleStrings(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.WriteHeader(http.StatusOK)
 
 	s := createJSONResponse()
 
@@ -82,12 +99,6 @@ func createJSONResponse() string {
 	s = s[:len(s)-2]
 	s += "]"
 	return s
-}
-
-func saveLogMessage(lm pb.LogMessage) {
-	mu.Lock()
-	defer mu.Unlock()
-	lms = append(lms, lm)
 }
 
 func main() {

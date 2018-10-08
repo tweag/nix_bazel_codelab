@@ -76,6 +76,7 @@ java_binary(
     name = "JavaLoggingClient",
     srcs = ["JavaLoggingClient.java"],
     main_class = "bazel.bootcamp.JavaLoggingClient",
+    visibility = ["//tests:__subpackages__"],
     deps = [":java-logging-client-lib"],
 )
 
