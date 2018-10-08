@@ -3,6 +3,6 @@ sh_test(
     srcs = ["integrationtest.sh"],
     data = [
         "//go/cmd/server:go-server",
-        "//java/src/main/java/bootcamp:JavaLoggingClient",
+        "//java/src/main/java/bazel/bootcamp:JavaLoggingClient",
     ],
 )
