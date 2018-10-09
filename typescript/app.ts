@@ -27,19 +27,43 @@ class ServerLogs {
     return response.json();
   }
 
+  private timestampToString(timestamp): String {
+    // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+    var date = new Date(timestamp*1000);
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return formattedTime;
+  }
+
   private displayServerLogs(data: Response) {
     console.log('in display');
-    const el: HTMLDivElement = document.createElement('div');
-    el.innerText = JSON.stringify(data);
-    const message: LogMessage = LogMessage.fromObject(data);
-    console.log(message);
-    el.className = 'ts1';
+
+    const el: HTMLElement = document.getElementById('log_results');
+    el.innerHTML = "";
+
+    var jsonData = JSON.parse(JSON.stringify(data));
+    for (var i=0; i < jsonData.length; i++) {
+       var logElement : HTMLDivElement = document.createElement('div');
+
+       var divHTML = "";
+       divHTML += "<b>message:</b> '" + jsonData[i].message;
+       divHTML += "' received at <b>time:</b> " + this.timestampToString(jsonData[i].time);
+       logElement.innerHTML = divHTML;
+
+       el.appendChild(logElement);
+       console.log(jsonData[i]);
+    }
+
     document.body.appendChild(el);
+
     return undefined;
   }
 
   private throwError(error) {
-    document.write('<p>Oops! something wrong! We are so embarrased..</p>');
+    const el: HTMLElement = document.getElementById('log_results');
+    el.innerHTML = 'No logs found, sorry. Try again once the server has logs?';
     console.log(error);
     return Promise.reject(error);
   }
@@ -53,4 +77,8 @@ button.onclick =
   serverLogs.getServerLogs();
 }
 
-    document.body.appendChild(button);
+let logResultsDiv = document.createElement('div');
+logResultsDiv.setAttribute('id', 'log_results');
+
+document.body.appendChild(button);
+document.body.appendChild(logResultsDiv);
