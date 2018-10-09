@@ -8,11 +8,12 @@
 1.  Run the binary using `bazel run //java/src/main/java/bazel/bootcamp:HelloBazelBootcamp`
 
 ## Section 2: Go server
-1.  Edit the `BUILD` file for `server.go`
-1.  Documentation: https://github.com/bazelbuild/rules_go/blob/master/go/core.rst#go_binary
 1.  Edit the `BUILD` file for `logger.proto`
 1.  Documentation: https://docs.bazel.build/versions/master/be/protocol-buffer.html#proto_library
 1.  Documentation: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#go_proto_library
+    - Hint: Check out the `compilers` attribute for `go_proto_library`
+1.  Edit the `BUILD` file for `server.go`
+1.  Documentation: https://github.com/bazelbuild/rules_go/blob/master/go/core.rst#go_binary    
 1.  Run the go binary using `bazel run`
 1.  Go to http://localhost:8081 to see results (there won't be any logs yet)
 
