@@ -53,6 +53,7 @@
 1.  Run the test using `bazel test <target> --runs_per_test=10` and make sure that it passes
 
 ## Section 7: Query
+1.  https://docs.bazel.build/versions/master/query-how-to.html
 
 ## Section X: Android
 
