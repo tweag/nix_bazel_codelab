@@ -81,23 +81,29 @@ func handleStrings(w http.ResponseWriter, req *http.Request) {
 }
 
 func createJSONResponse() string {
+
 	mu.Lock()
 	defer mu.Unlock()
 
-	m := jsonpb.Marshaler{}
-	s := "["
-	for _, lm := range lms {
-		// TODO(dannark): Use m.Marshal(w, pb) to Marshall into json object
-		// then put those objects in a list and then send the list??
+	s := ""
+	if len(lms) > 0 {
+		m := jsonpb.Marshaler{}
+		s = "["
+		for _, lm := range lms {
+			// TODO(dannark): Use m.Marshal(w, pb) to Marshall into json object
+			// then put those objects in a list and then send the list??
 
-		// marshal current element to json string
-		js, _ := m.MarshalToString(&lm)
-		s += js
-		s += ", "
+			// marshal current element to json string
+			js, _ := m.MarshalToString(&lm)
+			s += js
+			s += ", "
+		}
+		// remove trailing comma
+		s = s[:len(s)-2]
+		s += "]"
+	} else {
+		s = "No log messages received yet."
 	}
-	// remove trailing comma
-	s = s[:len(s)-2]
-	s += "]"
 	return s
 }
 
