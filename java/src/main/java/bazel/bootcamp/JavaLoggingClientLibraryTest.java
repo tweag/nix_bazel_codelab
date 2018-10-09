@@ -9,11 +9,11 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public final class JavaLoggingClientLibraryTest {
 
-  private JavaLoggingLibrary client;
+  private JavaLoggingClientLibrary client;
 
   @Before
   public void setUp() throws Exception {
-    client = new JavaLoggingLibrary("localhost", 8888);
+    client = new JavaLoggingClientLibrary("localhost", 8888);
   }
 
   @Test

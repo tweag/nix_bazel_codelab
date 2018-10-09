@@ -7,14 +7,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class JavaLoggingLibrary {
-  private static final Logger logger = Logger.getLogger(JavaLoggingLibrary.class.getName());
+public class JavaLoggingClientLibrary {
+  private static final Logger logger = Logger.getLogger(JavaLoggingClientLibrary.class.getName());
 
   private final ManagedChannel channel;
   private final LoggerGrpc.LoggerBlockingStub blockingStub;
 
   /** Construct client connecting to server at {@code host:port}. */
-  public JavaLoggingLibrary(String host, int port) {
+  public JavaLoggingClientLibrary(String host, int port) {
     this(
         ManagedChannelBuilder.forAddress(host, port)
             // Disable TLS to avoid needing certificates.
@@ -23,7 +23,7 @@ public class JavaLoggingLibrary {
   }
 
   /** Construct client for accessing the Logging server using the existing channel. */
-  JavaLoggingLibrary(ManagedChannel channel) {
+  JavaLoggingClientLibrary(ManagedChannel channel) {
     this.channel = channel;
     blockingStub = LoggerGrpc.newBlockingStub(channel);
   }
