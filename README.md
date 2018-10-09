@@ -29,6 +29,7 @@
 
 ## Section 4: Java client unit tests
 1.  Edit the `BUILD` file for `JavaLoggingClientLibraryTest.java`
+    - Hint: Names matter for tests. The `java_test()` for this file should be named `JavaLoggingClientLibraryTest`
 1.  Edit the `BUILD` file for `JavaLoggingClientTest.java`
 1.  Documentation: https://docs.bazel.build/versions/master/be/java.html#java_test
 1.  Run the tests using `bazel test`
