@@ -1,12 +1,17 @@
 #!/bin/bash
-
 set -euo pipefail
 
-readonly GO_SERVER="${TEST_SRCDIR}/bootcamp/go/cmd/server/linux_amd64_stripped/go-server"
-readonly JAVA_CLIENT="${TEST_SRCDIR}/bootcamp/java/src/main/java/bootcamp/JavaLoggingClient"
+readonly GO_SERVER="$(find "${TEST_SRCDIR}" -name go-server)"
+readonly JAVA_CLIENT="$(find "${TEST_SRCDIR}" -name JavaLoggingClient)"
 
 "$GO_SERVER" &
-readonly PID="$!"
-"$JAVA_CLIENT" <<< "message" <<< "exit"
-kill "$PID"
+readonly GO_SERVER_PID="$!"
+
+"$JAVA_CLIENT" <<EOF
+message
+exit
+EOF
+
 cat /tmp/bootcamp_server_last_message.txt | grep -o message
+kill "$GO_SERVER_PID"
+rm /tmp/bootcamp_server_last_message.txt
