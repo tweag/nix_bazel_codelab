@@ -69,3 +69,7 @@
     mobile-install :android-client`
 1.  Use host=10.0.2.2 and port=50051 when the app boots in the emulator
 
+
+
+https://goo.gl/forms/uMpvA4RpxPqHN0Fs2
+
