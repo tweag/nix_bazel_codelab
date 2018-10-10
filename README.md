@@ -57,23 +57,12 @@
     - Documentation: https://docs.bazel.build/versions/master/be/shell.html#sh_test
 1.  Run the test using `bazel test` and make sure that it passes
 1.  Run the test using `bazel test <target> --runs_per_test=10` and make sure that it passes
+    >! Hint: You may need to modify the `BUILD` file again to make this work
 
 ## Section 7: Query
 1.  https://docs.bazel.build/versions/master/query-how-to.html
 
-## Section X: Android
 
-1.  (Install android studio)[https://developer.android.com/studio/install#linux]
-    Follow the steps and make sure you also install the SDK during this process.
-1.  Use the avd manager (Tools > AVD Manager) to create a virtual device (pixel
-    with oreo is fine). This will require you to download a system image.
-1.  Boot up an emulator using the AVD manager.
-1.  Run the server from Section 1
-1.  Build and install the app using mobile-install: `bazel
-    mobile-install :android-client`
-1.  Use host=10.0.2.2 and port=50051 when the app boots in the emulator
-
-
-
+## Feedback form
 https://goo.gl/forms/uMpvA4RpxPqHN0Fs2
 
