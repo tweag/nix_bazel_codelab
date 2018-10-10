@@ -102,7 +102,7 @@ func createJSONResponse() string {
 		s = s[:len(s)-2]
 		s += "]"
 	} else {
-		s = "No log messages received yet."
+		s = "\"No log messages received yet.\""
 	}
 	return s
 }
