@@ -11,7 +11,8 @@
 1.  Edit the `BUILD` file for `logger.proto`
     - Documentation: https://docs.bazel.build/versions/master/be/protocol-buffer.html#proto_library
     - Documentation: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#go_proto_library
-    - Hint: Check out the `compilers` attribute for `go_proto_library`
+    <details> <summary>Hint</summary>Check out the <code>compilers</code> attribute for <code>go_proto_library</code></details>
+    
 1.  Edit the `BUILD` file for `server.go`
     - Documentation: https://github.com/bazelbuild/rules_go/blob/master/go/core.rst#go_binary    
 1.  Run the go binary using `bazel run`
@@ -33,7 +34,7 @@
 
 ## Section 4: Java client unit tests
 1.  Edit the `BUILD` file for `JavaLoggingClientLibraryTest.java`
-    - Hint: Names matter for tests. The `java_test()` for this file should be named `JavaLoggingClientLibraryTest`
+    <details> <summary>Hint</summary>Names matter for tests. The <code>java_test</code> for this file should be named <code>JavaLoggingClientLibraryTest</code></details>
 1.  Edit the `BUILD` file for `JavaLoggingClientTest.java`
     - Documentation: https://docs.bazel.build/versions/master/be/java.html#java_test
 1.  Run the tests using `bazel test`
@@ -57,7 +58,7 @@
     - Documentation: https://docs.bazel.build/versions/master/be/shell.html#sh_test
 1.  Run the test using `bazel test` and make sure that it passes
 1.  Run the test using `bazel test <target> --runs_per_test=10` and make sure that it passes
-    >! Hint: You may need to modify the `BUILD` file again to make this work
+    <details> <summary>Hint</summary>You may need to modify the <code>BUILD</code> file again to make this work</details>
 
 ## Section 7: Query
 1.  https://docs.bazel.build/versions/master/query-how-to.html
