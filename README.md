@@ -11,7 +11,7 @@
 1.  Edit the `BUILD` file for `logger.proto`
     - Documentation: https://docs.bazel.build/versions/master/be/protocol-buffer.html#proto_library
     - Documentation: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#go_proto_library
-    <details> <summary>Hint</summary>Check out the <code>compilers</code> attribute for <code>go_proto_library</code></details>
+    <details> <summary>Hint</summary>Check out the <code>compilers</code> attribute for <code>go_proto_library</code> in the grpc example</details>
     
 1.  Edit the `BUILD` file for `server.go`
     - Documentation: https://github.com/bazelbuild/rules_go/blob/master/go/core.rst#go_binary    
