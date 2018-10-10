@@ -12,6 +12,7 @@
     - Documentation: https://docs.bazel.build/versions/master/be/protocol-buffer.html#proto_library
     - Documentation: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#go_proto_library
     <details> <summary>Hint</summary>Check out the <code>compilers</code> attribute for <code>go_proto_library</code> in the grpc example</details>
+    <details> <summary>Hint</summary>Go libraries each declare the import path at which they would like to be imported by other go files. <code>server.go</code> imports the proto file at <code>bootcamp/proto/logger</code> so the <code>importpath</code> attribute of <code>go_proto_library</code> should match that.</details>
     
 1.  Edit the `BUILD` file for `server.go`
     - Documentation: https://github.com/bazelbuild/rules_go/blob/master/go/core.rst#go_binary    
