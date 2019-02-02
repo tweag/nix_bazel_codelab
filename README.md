@@ -1,5 +1,7 @@
 # Bazel Codelab
 
+### Informational slides: https://docs.google.com/presentation/d/1MNBUCde6vgs5kk--hDYXp3JS-whD3AnLRZOdelGQZ5s/edit?usp=sharing
+
 ## Section 1: Hello, Bazel!
 
 1.  Edit: `java/src/main/java/bazel/bootcamp/BUILD`
