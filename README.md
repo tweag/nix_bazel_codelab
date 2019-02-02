@@ -1,4 +1,4 @@
-# This repository contains the completed source code, but no BUILD files, for the Bazel Bootcamp to be presented at BazelCon 2018.
+# Bazel Codelab
 
 ## Section 1: Hello, Bazel!
 
@@ -64,7 +64,4 @@
 ## Section 7: Query
 1.  https://docs.bazel.build/versions/master/query-how-to.html
 
-
-## Feedback form
-https://goo.gl/forms/uMpvA4RpxPqHN0Fs2
 
