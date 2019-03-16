@@ -1,6 +1,7 @@
 # Bazel Codelab
 
-### [Informational slides](https://docs.google.com/presentation/d/1MNBUCde6vgs5kk--hDYXp3JS-whD3AnLRZOdelGQZ5s/edit?usp=sharing)
+## Before you get started
+Take a look at these [informational slides](https://docs.google.com/presentation/d/1MNBUCde6vgs5kk--hDYXp3JS-whD3AnLRZOdelGQZ5s/edit?usp=sharing) to learn about Bazel.
 
 ## Section 1: Hello, Bazel!
 
