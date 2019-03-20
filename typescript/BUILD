@@ -1,4 +1,4 @@
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_library", "ts_devserver")
+load("@npm_bazel_typescript//:index.bzl", "ts_library", "ts_devserver")
 
 ts_library(
 	name = "app",

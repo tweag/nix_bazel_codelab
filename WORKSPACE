@@ -13,6 +13,7 @@ load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
 grpc_java_repositories()
 
 
+
 # go dependencies
 http_archive(
     name = "io_bazel_rules_go",
@@ -22,6 +23,31 @@ http_archive(
 load("@io_bazel_rules_go//go:deps.bzl", "go_rules_dependencies", "go_register_toolchains")
 go_rules_dependencies()
 go_register_toolchains()
+
+
+
+# typescript dependencies
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "fb87ed5965cef93188af9a7287511639403f4b0da418961ce6defb9dcf658f51",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.27.7/rules_nodejs-0.27.7.tar.gz"],
+)
+
+load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
+node_repositories(package_json = ["//typescript:package.json"])
+yarn_install(
+    name = "npm",
+    package_json = "//typescript:package.json",
+    yarn_lock = "//typescript:yarn.lock",
+)
+
+load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+install_bazel_dependencies()
+
+load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
+ts_setup_workspace()
+
 
 
 # android dependencies -- uncomment these lines if you wish to build the
