@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary")
 
 # deps
 #       "@com_github_golang_protobuf//jsonpb:go_default_library_gen",
