@@ -49,9 +49,11 @@ Take a look at these [informational slides](https://docs.google.com/presentation
     those instructions assume that you are starting with an empty project. So you will need
     to add the listed dependencies to the WORKSPACE file, but you don't need to run the
     commands to generate the files like `yarn.lock` or `package.json`. Check the existing
-    project to see what is present. 
+    project to see what is present.
+1.  Edit the `BUILD` file for `logger.proto`
+    - Documentation: https://www.npmjs.com/package/@bazel/typescript#ts_proto_library
 1.  Edit the `BUILD` file for `app.ts`
-    - Documentation: https://github.com/bazelbuild/rules_typescript#usage
+    - Documentation: https://www.npmjs.com/package/@bazel/typescript#compiling-typescript-ts_library and        https://www.npmjs.com/package/@bazel/typescript#ts_library
 1.  Run the webserver using `bazel run`. It will print out a link which you can click on.
     If the link doesn't work, go to http://localhost:8080 instead
 1.  Run the Go server and Java client from the previous steps. Send messages from the Java
