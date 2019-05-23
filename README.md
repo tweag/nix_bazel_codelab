@@ -1,7 +1,7 @@
 # Bazel Codelab
 
 ## Before you get started
-Take a look at these [informational slides](https://docs.google.com/presentation/d/1MNBUCde6vgs5kk--hDYXp3JS-whD3AnLRZOdelGQZ5s/edit?usp=sharing) to learn about Bazel.
+Take a look at these [informational slides](https://docs.google.com/presentation/d/1vNuuY97NmxP85MLEheYcMDHbpFb6cwSYWPNloBqdrPM/edit#slide=id.p) to learn about Bazel.
 
 ## Section 1: Hello, Bazel!
 
@@ -44,12 +44,7 @@ Take a look at these [informational slides](https://docs.google.com/presentation
 1.  Run the tests using `bazel test`
 
 ## Section 5: Typescript web frontend
-1.  Edit the `WORKSPACE` file to add the typescript external dependencies following steps
-    from here: https://github.com/alexeagle/ts-from-bazel/blob/master/README.md. Note that
-    those instructions assume that you are starting with an empty project. So you will need
-    to add the listed dependencies to the WORKSPACE file, but you don't need to run the
-    commands to generate the files like `yarn.lock` or `package.json`. Check the existing
-    project to see what is present.
+1.  Edit the `WORKSPACE` to uncomment the typescript relevant portions
 1.  Edit the `BUILD` file for `logger.proto`
     - [`ts_proto_library` documentation](https://www.npmjs.com/package/@bazel/typescript#ts_proto_library)
 1.  Edit the `BUILD` file for `app.ts`
