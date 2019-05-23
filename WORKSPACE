@@ -27,25 +27,25 @@ go_register_toolchains()
 
 
 # typescript dependencies
-http_archive(
-    name = "build_bazel_rules_nodejs",
-    sha256 = "73325a155c16bfbde29fb2ffcaf59d9d5a1c13b06ada386d3edd5a9d82bda702",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.29.1/rules_nodejs-0.29.1.tar.gz"],
-)
+# http_archive(
+#     name = "build_bazel_rules_nodejs",
+#     sha256 = "73325a155c16bfbde29fb2ffcaf59d9d5a1c13b06ada386d3edd5a9d82bda702",
+#     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.29.1/rules_nodejs-0.29.1.tar.gz"],
+# )
 
-load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
+# load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
 
-yarn_install(
-    name = "npm",
-    package_json = "//typescript:package.json",
-    yarn_lock = "//typescript:yarn.lock",
-)
+# yarn_install(
+#     name = "npm",
+#     package_json = "//typescript:package.json",
+#     yarn_lock = "//typescript:yarn.lock",
+# )
 
-load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
-install_bazel_dependencies()
+# load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+# install_bazel_dependencies()
 
-load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
-ts_setup_workspace()
+# load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
+# ts_setup_workspace()
 
 
 
