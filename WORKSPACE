@@ -34,7 +34,6 @@ http_archive(
 )
 
 load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
-# node_repositories(package_json = ["//typescript:package.json"])
 
 yarn_install(
     name = "npm",
