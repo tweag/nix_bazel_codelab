@@ -14,13 +14,6 @@ tasks:
     - "//..."
     test_targets:
     - "//..."
-  windows:
-    shell_commands:
-    - sh generate_build_files.sh
-    build_targets:
-    - "//..."
-    test_targets:
-    - "//..."
   macos:
     shell_commands:
     - sh generate_build_files.sh
