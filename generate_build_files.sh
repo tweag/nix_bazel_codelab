@@ -26,38 +26,38 @@ EOF
 # generate java BUILD file
 cat > java/src/main/java/bazel/bootcamp/BUILD <<EOF
 java_binary(
-        name = "HelloBazelBootcamp",
-        srcs = ["HelloBazelBootcamp.java"],
+    name = "HelloBazelBootcamp",
+    srcs = ["HelloBazelBootcamp.java"],
 )
 
 java_library(
-        name = "JavaLoggingClientLibrary",
-        srcs = ["JavaLoggingClientLibrary.java"],
-        deps = [
-                "//proto/logger:logger_java_proto",
-                "//proto/logger:logger_java_grpc",
-                "@io_grpc_grpc_java//core",
-                "@io_grpc_grpc_java//netty",
-        ]
+    name = "JavaLoggingClientLibrary",
+    srcs = ["JavaLoggingClientLibrary.java"],
+    deps = [
+        "//proto/logger:logger_java_proto",
+        "//proto/logger:logger_java_grpc",
+        "@io_grpc_grpc_java//core",
+        "@io_grpc_grpc_java//netty",
+    ]
 )
 
 java_binary(
-        name = "JavaLoggingClient",
-        srcs = ["JavaLoggingClient.java"],
-        deps = [":JavaLoggingClientLibrary"],
-        visibility = ["//visibility:public"]
+    name = "JavaLoggingClient",
+    srcs = ["JavaLoggingClient.java"],
+    deps = [":JavaLoggingClientLibrary"],
+    visibility = ["//visibility:public"]
 )
 
 java_test(
-        name = "JavaLoggingClientLibraryTest",
-        srcs = ["JavaLoggingClientLibraryTest.java"],
-        deps = [":JavaLoggingClientLibrary"]
+    name = "JavaLoggingClientLibraryTest",
+    srcs = ["JavaLoggingClientLibraryTest.java"],
+    deps = [":JavaLoggingClientLibrary"]
 )
 
 java_test(
-        name = "JavaLoggingClientTest",
-        srcs = ["JavaLoggingClientTest.java"],
-        deps = [":JavaLoggingClient"]
+    name = "JavaLoggingClientTest",
+    srcs = ["JavaLoggingClientTest.java"],
+    deps = [":JavaLoggingClient"]
 )
 EOF
 
@@ -72,31 +72,31 @@ load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 load("@npm_bazel_typescript//:index.bzl", "ts_proto_library")
 
 proto_library(
-        name = "logger_proto",
-        srcs = ["logger.proto"]
+    name = "logger_proto",
+    srcs = ["logger.proto"]
 )
 
 go_proto_library(
-        name = "logger_go_proto",
-        proto = ":logger_proto",
-        compilers = ["@io_bazel_rules_go//proto:go_grpc"],
-        importpath = "bootcamp/proto/logger"
+    name = "logger_go_proto",
+    proto = ":logger_proto",
+    compilers = ["@io_bazel_rules_go//proto:go_grpc"],
+    importpath = "bootcamp/proto/logger"
 )
 
 java_proto_library(
-        name = "logger_java_proto",
-        deps = [":logger_proto"]
+    name = "logger_java_proto",
+    deps = [":logger_proto"]
 )
 
 java_grpc_library(
-        name = "logger_java_grpc",
-        srcs = [":logger_proto"],
-        deps = [":logger_java_proto"],
+    name = "logger_java_grpc",
+    srcs = [":logger_proto"],
+    deps = [":logger_java_proto"],
 )
 
 ts_proto_library(
-        name = "logger_ts_proto",
-        deps = [":logger_proto"]
+    name = "logger_ts_proto",
+    deps = [":logger_proto"]
 )
 EOF
 
@@ -104,13 +104,13 @@ EOF
 # write shell test
 cat > tests/BUILD <<EOF
 sh_test(
-        name = "integration_test",
-        srcs = ["integrationtest.sh"],
-        data = [
-                "//go/cmd/server:go-server",
-                "//java/src/main/java/bazel/bootcamp:JavaLoggingClient",
-        ], 
-        tags = ["exclusive"]
+    name = "integration_test",
+    srcs = ["integrationtest.sh"],
+    data = [
+        "//go/cmd/server:go-server",
+        "//java/src/main/java/bazel/bootcamp:JavaLoggingClient",
+    ], 
+    tags = ["exclusive"]
 )
 EOF
 
@@ -132,7 +132,6 @@ http_archive(
 )
 load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
 grpc_java_repositories()
-
 
 
 # go dependencies
@@ -178,20 +177,7 @@ go_repository(
     version = "v0.3.0",
 )
 
-# This is recommended by rules_go, but it does not actually work.
-#http_repository(
-#    name = "com_google_protobuf",
-#    urls = [
-#        "https://github.com/protocolbuffers/protobuf/releases/download/v3.9.1/protobuf-all-3.9.1.tar.gz",
-#    ],
-#    sha256 = "3040a5b946d9df7aa89c0bf6981330bf92b7844fd90e71b61da0c721e421a421",
-#    strip_prefix = "protobuf-3.9.1",
-#)
-#load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-#protobuf_deps()
-
-
-# typescript dependencies
+# BEGIN: typescript dependencies
 http_archive(
     name = "build_bazel_rules_nodejs",
     urls = [
@@ -213,4 +199,5 @@ install_bazel_dependencies()
 
 load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
 ts_setup_workspace()
+# END: typescript dependencies
 EOF

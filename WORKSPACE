@@ -15,7 +15,6 @@ load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
 grpc_java_repositories()
 
 
-
 # go dependencies
 http_archive(
     name = "io_bazel_rules_go",
@@ -59,38 +58,27 @@ go_repository(
     version = "v0.3.0",
 )
 
-# This is recommended by rules_go, but it does not actually work.
-#http_repository(
-#    name = "com_google_protobuf",
+
+# BEGIN: typescript dependencies
+#http_archive(
+#    name = "build_bazel_rules_nodejs",
 #    urls = [
-#        "https://github.com/protocolbuffers/protobuf/releases/download/v3.9.1/protobuf-all-3.9.1.tar.gz",
+#        "https://github.com/bazelbuild/rules_nodejs/releases/download/0.35.0/rules_nodejs-0.35.0.tar.gz",
 #    ],
-#    sha256 = "3040a5b946d9df7aa89c0bf6981330bf92b7844fd90e71b61da0c721e421a421",
-#    strip_prefix = "protobuf-3.9.1",
+#    sha256 = "6625259f9f77ef90d795d20df1d0385d9b3ce63b6619325f702b6358abb4ab33",
 #)
-#load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-#protobuf_deps()
 
+#load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
 
-# typescript dependencies
-http_archive(
-    name = "build_bazel_rules_nodejs",
-    urls = [
-        "https://github.com/bazelbuild/rules_nodejs/releases/download/0.35.0/rules_nodejs-0.35.0.tar.gz",
-    ],
-    sha256 = "6625259f9f77ef90d795d20df1d0385d9b3ce63b6619325f702b6358abb4ab33",
-)
-
-load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
-
-yarn_install(
-    name = "npm",
-    package_json = "//typescript:package.json",
-    yarn_lock = "//typescript:yarn.lock",
-)
-
-load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
-install_bazel_dependencies()
-
-load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
-ts_setup_workspace()
+#yarn_install(
+#    name = "npm",
+#    package_json = "//typescript:package.json",
+#    yarn_lock = "//typescript:yarn.lock",
+#)
+#
+#load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+#install_bazel_dependencies()
+#
+#load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
+#ts_setup_workspace()
+# END: typescript dependencies
