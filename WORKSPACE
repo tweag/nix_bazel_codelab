@@ -1,13 +1,15 @@
 workspace(name = "bootcamp")
-
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # grpc dependencies
-git_repository(
+http_archive(
     name = "io_grpc_grpc_java",
-    commit = "a2cda8d15d752624180460d3e7e7d7322da13a2d",
-    remote = "https://github.com/grpc/grpc-java.git",
+    urls = [
+        "https://github.com/grpc/grpc-java/archive/v1.22.1.tar.gz",
+    ],
+    sha256 = "6e63bd6f5a82de0b84c802390adb8661013bad9ebf910ad7e1f3f72b5f798832",
+    strip_prefix = "grpc-java-1.22.1",
 )
 load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
 grpc_java_repositories()
@@ -17,53 +19,78 @@ grpc_java_repositories()
 # go dependencies
 http_archive(
     name = "io_bazel_rules_go",
-    urls = ["https://github.com/bazelbuild/rules_go/releases/download/0.18.5/rules_go-0.18.5.tar.gz"],
-    sha256 = "a82a352bffae6bee4e95f68a8d80a70e87f42c4741e6a448bec11998fcc82329",
+    urls = [
+        "https://storage.googleapis.com/bazel-mirror/github.com/bazelbuild/rules_go/releases/download/0.19.1/rules_go-0.19.1.tar.gz",
+        "https://github.com/bazelbuild/rules_go/releases/download/0.19.1/rules_go-0.19.1.tar.gz",
+    ],
+    sha256 = "8df59f11fb697743cbb3f26cfb8750395f30471e9eabde0d174c3aebc7a1cd39",
 )
 load("@io_bazel_rules_go//go:deps.bzl", "go_rules_dependencies", "go_register_toolchains")
 go_rules_dependencies()
 go_register_toolchains()
 
+http_archive(
+    name = "bazel_gazelle",
+    urls = [
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/0.18.1/bazel-gazelle-0.18.1.tar.gz",
+    ],
+    sha256 = "be9296bfd64882e3c08e3283c58fcb461fa6dd3c171764fcc4cf322f60615a9b",
+)
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+gazelle_dependencies()
+
+go_repository(
+    name = "org_golang_google_grpc",
+    build_file_proto_mode = "disable",
+    importpath = "google.golang.org/grpc",
+    sum = "h1:J0UbZOIrCAl+fpTOf8YLs4dJo8L/owV4LYVtAXQoPkw=",
+    version = "v1.22.0",
+)
+go_repository(
+    name = "org_golang_x_net",
+    importpath = "golang.org/x/net",
+    sum = "h1:oWX7TPOiFAMXLq8o0ikBYfCJVlRHBcsciT5bXOrH628=",
+    version = "v0.0.0-20190311183353-d8887717615a",
+)
+go_repository(
+    name = "org_golang_x_text",
+    importpath = "golang.org/x/text",
+    sum = "h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=",
+    version = "v0.3.0",
+)
+
+# This is recommended by rules_go, but it does not actually work.
+#http_repository(
+#    name = "com_google_protobuf",
+#    urls = [
+#        "https://github.com/protocolbuffers/protobuf/releases/download/v3.9.1/protobuf-all-3.9.1.tar.gz",
+#    ],
+#    sha256 = "3040a5b946d9df7aa89c0bf6981330bf92b7844fd90e71b61da0c721e421a421",
+#    strip_prefix = "protobuf-3.9.1",
+#)
+#load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+#protobuf_deps()
 
 
 # typescript dependencies
-# http_archive(
-#     name = "build_bazel_rules_nodejs",
-#     sha256 = "73325a155c16bfbde29fb2ffcaf59d9d5a1c13b06ada386d3edd5a9d82bda702",
-#     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.29.1/rules_nodejs-0.29.1.tar.gz"],
-# )
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    urls = [
+        "https://github.com/bazelbuild/rules_nodejs/releases/download/0.35.0/rules_nodejs-0.35.0.tar.gz",
+    ],
+    sha256 = "6625259f9f77ef90d795d20df1d0385d9b3ce63b6619325f702b6358abb4ab33",
+)
 
-# load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
+load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
 
-# yarn_install(
-#     name = "npm",
-#     package_json = "//typescript:package.json",
-#     yarn_lock = "//typescript:yarn.lock",
-# )
+yarn_install(
+    name = "npm",
+    package_json = "//typescript:package.json",
+    yarn_lock = "//typescript:yarn.lock",
+)
 
-# load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
-# install_bazel_dependencies()
+load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+install_bazel_dependencies()
 
-# load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
-# ts_setup_workspace()
-
-
-
-# android dependencies -- uncomment these lines if you wish to build the
-# android portion of the project
-#android_sdk_repository(
-#    name = "androidsdk",
-#)
-#
-#GMAVEN_TAG = "20180916-1"
-#
-#http_archive(
-#    name = "gmaven_rules",
-#    strip_prefix = "gmaven_rules-%s" % GMAVEN_TAG,
-#    url = "https://github.com/bazelbuild/gmaven_rules/archive/%s.tar.gz" % GMAVEN_TAG,
-#)
-#
-#load("@gmaven_rules//:gmaven.bzl", "gmaven_rules")
-#
-#gmaven_rules()
-
+load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
+ts_setup_workspace()
