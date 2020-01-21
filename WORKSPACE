@@ -19,6 +19,10 @@ load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
 
 grpc_java_repositories()
 
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
 # go dependencies
 http_archive(
     name = "io_bazel_rules_go",
