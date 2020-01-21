@@ -20,7 +20,9 @@ git_repository(
     commit = "a4299eb6bed3c2f2497f583d0c4620c9f31ec455",
     remote = "https://github.com/grpc/grpc-java",
 )
+
 load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
+
 grpc_java_repositories()
 
 
