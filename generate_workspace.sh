@@ -10,13 +10,15 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # grpc dependencies
-http_archive(
+git_repository(
     name = "io_grpc_grpc_java",
-    urls = [
-        "https://github.com/grpc/grpc-java/archive/v1.22.1.tar.gz",
-    ],
-    sha256 = "6e63bd6f5a82de0b84c802390adb8661013bad9ebf910ad7e1f3f72b5f798832",
-    strip_prefix = "grpc-java-1.22.1",
+    # TODO: Update reference to a release version (once it exists) that contains
+    # a4299eb6bed3c2f2497f583d0c4620c9f31ec455. Maybe use a http_archive instead of git_repository
+    # if http_archive is better in some way.
+    # Commit a4299eb6bed3c2f2497f583d0c4620c9f31ec455 fixed
+    # https://github.com/grpc/grpc-java/issues/6536. That bug caused test failures on Bazel CI.
+    commit = "a4299eb6bed3c2f2497f583d0c4620c9f31ec455",
+    remote = "https://github.com/grpc/grpc-java",
 )
 load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
 grpc_java_repositories()
