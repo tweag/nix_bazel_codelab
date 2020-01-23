@@ -6,19 +6,17 @@
 # write WORKSPACE file
 cat > WORKSPACE <<EOF
 workspace(name = "bootcamp")
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # grpc dependencies
-git_repository(
+http_archive(
     name = "io_grpc_grpc_java",
     # TODO: Update reference to a release version (once it exists) that contains
-    # a4299eb6bed3c2f2497f583d0c4620c9f31ec455. Maybe use a http_archive instead of git_repository
-    # if http_archive is better in some way.
+    # a4299eb6bed3c2f2497f583d0c4620c9f31ec455.
     # Commit a4299eb6bed3c2f2497f583d0c4620c9f31ec455 fixed
     # https://github.com/grpc/grpc-java/issues/6536. That bug caused test failures on Bazel CI.
-    commit = "a4299eb6bed3c2f2497f583d0c4620c9f31ec455",
-    remote = "https://github.com/grpc/grpc-java",
+    urls = ["https://github.com/grpc/grpc-java/archive/a4299eb6bed3c2f2497f583d0c4620c9f31ec455.tar.gz"],
+    strip_prefix = "grpc-java-a4299eb6bed3c2f2497f583d0c4620c9f31ec455",
 )
 
 load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
