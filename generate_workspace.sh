@@ -15,6 +15,8 @@ http_archive(
     # a4299eb6bed3c2f2497f583d0c4620c9f31ec455.
     # Commit a4299eb6bed3c2f2497f583d0c4620c9f31ec455 fixed
     # https://github.com/grpc/grpc-java/issues/6536. That bug caused test failures on Bazel CI.
+    # We don't specify sha256, because the sha256 of GitHub-served non-release archives isn't
+    # stable.
     urls = ["https://github.com/grpc/grpc-java/archive/a4299eb6bed3c2f2497f583d0c4620c9f31ec455.tar.gz"],
     strip_prefix = "grpc-java-a4299eb6bed3c2f2497f583d0c4620c9f31ec455",
 )
