@@ -6,9 +6,44 @@
 # write WORKSPACE file
 cat > WORKSPACE <<EOF
 workspace(name = "bootcamp")
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# grpc dependencies
+# BEGIN: Java dependencies
+http_archive(
+    name = "rules_java",
+    sha256 = "1969a89e8da396eb7754fd0247b7df39b6df433c3dcca0095b4ba30a5409cc9d",
+    strip_prefix = "rules_java-32ddd6c4f0ad38a54169d049ec05febc393b58fc",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_java/archive/32ddd6c4f0ad38a54169d049ec05febc393b58fc.tar.gz",
+        "https://github.com/bazelbuild/rules_java/archive/32ddd6c4f0ad38a54169d049ec05febc393b58fc.tar.gz",
+    ],
+)
+
+load("@rules_java//java:repositories.bzl", "rules_java_dependencies", "rules_java_toolchains")
+rules_java_dependencies()
+rules_java_toolchains()
+# END: Java dependencies
+
+
+# BEGIN: Protobuf dependencies
+http_archive(
+    name = "rules_proto",
+    sha256 = "4d421d51f9ecfe9bf96ab23b55c6f2b809cbaf0eea24952683e397decfbd0dd0",
+    strip_prefix = "rules_proto-f6b8d89b90a7956f6782a4a3609b2f0eee3ce965",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/f6b8d89b90a7956f6782a4a3609b2f0eee3ce965.tar.gz",
+        "https://github.com/bazelbuild/rules_proto/archive/f6b8d89b90a7956f6782a4a3609b2f0eee3ce965.tar.gz",
+    ],
+)
+
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+rules_proto_dependencies()
+rules_proto_toolchains()
+# END: Protobuf dependencies
+
+
+# BEGIN: gRPC dependencies
 http_archive(
     name = "io_grpc_grpc_java",
     # TODO: Update reference to a release version (once it exists) that contains
@@ -22,15 +57,11 @@ http_archive(
 )
 
 load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
-
 grpc_java_repositories()
-
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-protobuf_deps()
+# END: gRPC dependencies
 
 
-# go dependencies
+# BEGIN: Go dependencies
 http_archive(
     name = "io_bazel_rules_go",
     urls = [
@@ -41,7 +72,6 @@ http_archive(
 )
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
-
 go_rules_dependencies()
 go_register_toolchains()
 
@@ -52,6 +82,7 @@ http_archive(
     ],
     sha256 = "be9296bfd64882e3c08e3283c58fcb461fa6dd3c171764fcc4cf322f60615a9b",
 )
+
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 gazelle_dependencies()
 
@@ -74,8 +105,10 @@ go_repository(
     sum = "h1:g61tztE5qeGQ89tm6NTjjM9VPIm088od1l6aSorWRWg=",
     version = "v0.3.0",
 )
+# END: Go dependencies
 
-# BEGIN: typescript dependencies
+
+# BEGIN: Typescript dependencies
 http_archive(
     name = "build_bazel_rules_nodejs",
     urls = [
@@ -97,5 +130,5 @@ install_bazel_dependencies()
 
 load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
 ts_setup_workspace()
-# END: typescript dependencies
+# END: Typescript dependencies
 EOF
