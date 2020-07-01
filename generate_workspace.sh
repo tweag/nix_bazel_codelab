@@ -46,14 +46,12 @@ rules_proto_toolchains()
 # BEGIN: gRPC dependencies
 http_archive(
     name = "io_grpc_grpc_java",
-    # TODO: Update reference to a release version (once it exists) that contains
-    # a4299eb6bed3c2f2497f583d0c4620c9f31ec455.
-    # Commit a4299eb6bed3c2f2497f583d0c4620c9f31ec455 fixed
-    # https://github.com/grpc/grpc-java/issues/6536. That bug caused test failures on Bazel CI.
-    # We don't specify sha256, because the sha256 of GitHub-served non-release archives isn't
-    # stable.
-    urls = ["https://github.com/grpc/grpc-java/archive/a4299eb6bed3c2f2497f583d0c4620c9f31ec455.tar.gz"],
-    strip_prefix = "grpc-java-a4299eb6bed3c2f2497f583d0c4620c9f31ec455",
+    urls = [
+        "https://mirror.bazel.build/github.com/grpc/grpc-java/archive/v1.29.0.tar.gz",
+        "https://github.com/grpc/grpc-java/archive/v1.29.0.tar.gz",
+    ],
+    sha256 = "62faefec4c211709416427ce071f66c901b449fbc471ecb03fbf71d0675db4a3",
+    strip_prefix = "grpc-java-1.29.0",
 )
 
 load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
