@@ -2,7 +2,34 @@ workspace(name = "bootcamp")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# BEGIN: Nix dependencies
+http_archive(
+    name = "io_tweag_rules_nixpkgs",
+    sha256 = "aff13f49b37678b4fae1a80710b21478a89d27615a22990a94a99244e4702061",
+    strip_prefix = "rules_nixpkgs-74c40cf36e9a79bafc59e745c3d1e49ec3098b23",
+    urls = ["https://github.com/tweag/rules_nixpkgs/archive/74c40cf36e9a79bafc59e745c3d1e49ec3098b23.tar.gz"],
+)
+
+load("@io_tweag_rules_nixpkgs//nixpkgs:repositories.bzl", "rules_nixpkgs_dependencies")
+
+rules_nixpkgs_dependencies()
+
+load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_local_repository", "nixpkgs_package")
+
+nixpkgs_local_repository(
+    name = "nixpkgs",
+    nix_file = "//nix/nixpkgs:default.nix",
+)
+# END: Nix dependencies
+
 # BEGIN: Java dependencies
+load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_java_configure")
+
+nixpkgs_java_configure(
+    attribute_path = "jdk11.home",
+    repository = "@nixpkgs",
+)
+
 http_archive(
     name = "rules_java",
     sha256 = "34b41ec683e67253043ab1a3d1e8b7c61e4e8edefbcad485381328c934d072fe",
@@ -20,6 +47,13 @@ rules_java_toolchains()
 # END: Java dependencies
 
 # BEGIN: CC dependencies
+load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_cc_configure")
+
+nixpkgs_cc_configure(
+    name = "nixpkgs_config_cc",
+    repository = "@nixpkgs",
+)
+
 http_archive(
     name = "rules_cc",
     sha256 = "4dccbfd22c0def164c8f47458bd50e0c7148f3d92002cdb459c2a96a68498241",
@@ -81,6 +115,13 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
+load("@io_tweag_rules_nixpkgs//nixpkgs:toolchains/go.bzl", "nixpkgs_go_configure")
+
+nixpkgs_go_configure(
+    repository = "@nixpkgs",
+    sdk_name = "nixpkgs_go_sdk",
+)
+
 go_register_toolchains(version = "1.16.9")
 
 http_archive(
@@ -98,7 +139,7 @@ load("//:deps.bzl", "go_dependencies")
 # gazelle:repository_macro deps.bzl%go_dependencies
 go_dependencies()
 
-gazelle_dependencies()
+gazelle_dependencies(go_sdk = "nixpkgs_go_sdk")
 # END: Go dependencies
 
 # BEGIN: Typescript dependencies
@@ -106,6 +147,20 @@ http_archive(
     name = "build_bazel_rules_nodejs",
     sha256 = "cfc289523cf1594598215901154a6c2515e8bf3671fd708264a6f6aefe02bf39",
     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/4.4.6/rules_nodejs-4.4.6.tar.gz"],
+)
+
+nixpkgs_package(
+    name = "nix_node",
+    build_file_content = 'exports_files(glob(["nix_node/bin/**"]))',
+    nix_file_content = 'with import <nixpkgs> {}; linkFarm "nodejs" [ { name = "nix_node"; path = nodejs-10_x; }]',
+    repository = "@nixpkgs",
+)
+
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
+
+node_repositories(
+    package_json = ["//typescript:package.json"],
+    vendored_node = "@nix_node",
 )
 
 load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
