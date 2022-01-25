@@ -4,8 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@bazel/concatjs": "^4.4.6",
     "@bazel/hide-bazel-files": "latest",
-    "@bazel/typescript": "^0.35.0",
+    "@bazel/labs": "^4.4.6",
+    "@bazel/typescript": "4.4.6",
     "protobufjs": "5.0.3",
     "typescript": "^3.3.1"
   }

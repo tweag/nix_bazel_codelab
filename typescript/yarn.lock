@@ -2,20 +2,42 @@
 # yarn lockfile v1
 
 
+"@bazel/concatjs@^4.4.6":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@bazel/concatjs/-/concatjs-4.6.1.tgz#c40abc3fbe362cbad1e3383c4e78b58d1f4c8e13"
+  integrity sha512-eI79oS1F8vK9kw8ttg/zeQYyOiN9FfhJjYyammkc3q4WlNs3Xm717Cp/CquSwPyFh022mB00Tib4gHJ7zp+VpA==
+  dependencies:
+    protobufjs "6.8.8"
+    source-map-support "0.5.9"
+    tsutils "3.21.0"
+
 "@bazel/hide-bazel-files@latest":
   version "0.35.0"
   resolved "https://registry.yarnpkg.com/@bazel/hide-bazel-files/-/hide-bazel-files-0.35.0.tgz#66ff148c1076534204d755024557609492718b7f"
   integrity sha512-+96mfEfoIpo2LNyN0929IwKpn50AXO04PZfonscvu3yV+3DVG1JLyq6W63zl/yGP1DAdgCPlRg5scNhkOzNpJw==
 
-"@bazel/typescript@^0.35.0":
-  version "0.35.0"
-  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.35.0.tgz#ffc69b7db0c1c7acd9dce1ecbd4381d6af2773a8"
-  integrity sha512-HklbkwL+eSLHD1Q+rQgoVMlwPpP+zdMDozqhCsFOUbR2BCU0HedASzaJ5y7wdpnVeCUXwJO5vO7JqqzfvdsBLw==
+"@bazel/labs@^4.4.6":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@bazel/labs/-/labs-4.6.1.tgz#c638b6b54e831abdca57ac8700af8c478c21e085"
+  integrity sha512-7CRtjP9W3ywX6AvTAzV5is0LrXt3zxUSW5SzUGa+LhdsrDc3+VDyW7MOJlwMai2xmBb4J1tqaZKo8KSlr2H2tg==
+
+"@bazel/typescript@4.4.6":
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-4.4.6.tgz#fbaac22460b3aa4a0961c6c657d239af8f895778"
+  integrity sha512-J205En8MjmnWSPnz4CqJm1x4mzcdWM+HvAsOzzVb0DHx86O+mjPFwqleeAtPGLTE9aWskel81XICJfEuTlNtiw==
   dependencies:
+    "@bazel/worker" "4.4.6"
     protobufjs "6.8.8"
     semver "5.6.0"
     source-map-support "0.5.9"
-    tsutils "2.27.2"
+    tsutils "3.21.0"
+
+"@bazel/worker@4.4.6":
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/@bazel/worker/-/worker-4.4.6.tgz#c9122c8ec765f62dc723203270a3c913caf8826a"
+  integrity sha512-1Sk0FGIc1m9rFwXhCnm46XDRng88vAnY1FBb7OQPonha/kuxjZTpPDP7q2ndSkqDNyCFKp94cPUFUT58Fgqvfw==
+  dependencies:
+    google-protobuf "^3.6.1"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
@@ -169,6 +191,11 @@ glob@^7.0.5:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
+google-protobuf@^3.6.1:
+  version "3.19.3"
+  resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.19.3.tgz#2d5fb0c77584d675fca509a1fbc80c64fff471c9"
+  integrity sha512-3GRDj8o9XjcALYjgxNKeD7Wm6w/V8r1Jo4sLYMic9+VaIMLBx8TQeHP9yaoRoDymNONhnkmmveDPyjw/Fpw8+A==
+
 inflight@^1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/inflight/-/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"
@@ -315,10 +342,10 @@ tslib@^1.8.1:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
-tsutils@2.27.2:
-  version "2.27.2"
-  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.27.2.tgz#60ba88a23d6f785ec4b89c6e8179cac9b431f1c7"
-  integrity sha512-qf6rmT84TFMuxAKez2pIfR8UCai49iQsfB7YWVjV1bKpy/d0PWT5rEOSM6La9PiHZ0k1RRZQiwVdVJfQ3BPHgg==
+tsutils@3.21.0:
+  version "3.21.0"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-3.21.0.tgz#b48717d394cea6c1e096983eed58e9d61715b623"
+  integrity sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==
   dependencies:
     tslib "^1.8.1"
 
