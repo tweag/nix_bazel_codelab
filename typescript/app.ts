@@ -1,4 +1,4 @@
-import {LogMessage} from '../proto/logger/logger_ts_proto'
+import {LogMessage} from '../proto/logger/logger_pb'
 
 class ServerLogs {
   getServerLogs(): Promise<Array<LogMessage>> {
@@ -43,8 +43,8 @@ class ServerLogs {
     const el: HTMLElement = document.getElementById('log_results');
     el.innerHTML = "";
 
-    var jsonData = JSON.parse(JSON.stringify(data));
-    for (var i=0; i < jsonData.length; i++) {
+    var jsonData = JSON.parse(JSON.stringify(data)) as Object;
+    for (var i=0; i < Object.keys(jsonData).length; i++) {
        var logElement : HTMLDivElement = document.createElement('div');
 
        var divHTML = "";
