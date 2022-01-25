@@ -1,4 +1,40 @@
-# Bazel Codelab
+# Nix+Bazel Codelab
+
+## Background
+
+This codelab is based on Google's [Bazel Codelab](https://github.com/bazelbuild/codelabs).
+It has been adapted to
+
+- Use more recent versions of the required Bazel rule sets.
+- Follow best practices such as formatting with [`buildifier`][buildifier] or using `BUILD.bazel` files instead of `BUILD` files.
+- Manage Go dependencies and targets using [Gazelle][gazelle].
+- Use [Nix][nix] to provide Bazel and other developer tools in a Nix shell.
+- Use [`rules_nixpkgs`][rules_nixpkgs] to import Nix provided toolchains from [`nixpkgs`][nixpkgs].
+
+[buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
+[gazelle]: https://github.com/bazelbuild/bazel-gazelle
+[nix]: https://nixos.org/
+[rules_nixpkgs]: https://github.com/tweag/rules_nixpkgs
+[nixpkgs]: https://github.com/NixOS/nixpkgs
+
+## TODO
+
+- [x] Base on `./generate_workspace.sh` and `./generate_build_files.sh`.
+- [x] Format using `buildifier`.
+- [x] Rename `BUILD` files to `BUILD.bazel`.
+- [x] Update Bazel rule sets
+- [x] Use Go mod to manage Go dependencies.
+- [x] Use Gazelle to import Go dependencies and manage Go targets.
+- [x] Update typescript targets for compatibility and use `concatjs` for development server.
+- [x] Set up a Nix shell
+- [x] Import toolchains using `rules_nixpkgs`.
+- [ ] Test that the build succeeds on CI.
+- [ ] Update the tutorial in this `README`.
+- [ ] Update `./generate_workspace.sh` and `./generate_build_files.sh` to reflect the Nix based solution.
+- [ ] Replace working `WORKSPACE` and `BUILD.bazel` content with placeholders to be a tutorial.
+- [ ] Consider other options for testing the tutorial, perhaps [`byexample`][byexample].
+
+[byexample]: https://byexamples.github.io/byexample/
 
 ## Before you get started
 Take a look at these [informational slides](https://docs.google.com/presentation/d/1vNuuY97NmxP85MLEheYcMDHbpFb6cwSYWPNloBqdrPM/edit#slide=id.p) to learn about Bazel.
