@@ -1,4 +1,4 @@
-load("@npm_bazel_typescript//:index.bzl", "ts_library", "ts_devserver")
+load("@npm_bazel_typescript//:index.bzl", "ts_devserver", "ts_library")
 
 ts_devserver(
     name = "devserver",
