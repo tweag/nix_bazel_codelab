@@ -54,7 +54,7 @@ Take a look at these [informational slides](https://docs.google.com/presentation
 
 ## Section 1: Hello, Bazel!
 
-1.  Edit: `java/src/main/java/bazel/bootcamp/BUILD`
+1.  Edit: `java/src/main/java/bazel/bootcamp/BUILD.bazel`
 1.  Add a `java_binary` target for the `HelloBazelBootcamp.java` file
     - [`java_binary` documentation](https://docs.bazel.build/versions/master/be/java.html#java_binary)
 1.  Run the binary using `bazel run //java/src/main/java/bazel/bootcamp:HelloBazelBootcamp`
