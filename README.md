@@ -29,12 +29,24 @@ It has been adapted to
 - [x] Set up a Nix shell
 - [x] Import toolchains using `rules_nixpkgs`.
 - [ ] Test that the build succeeds on CI.
-- [ ] Update the tutorial in this `README`.
+- [ ] Update the tutorial in this `README` and incorporate project layout.
 - [ ] Update `./generate_workspace.sh` and `./generate_build_files.sh` to reflect the Nix based solution.
 - [ ] Replace working `WORKSPACE` and `BUILD.bazel` content with placeholders to be a tutorial.
 - [ ] Consider other options for testing the tutorial, perhaps [`byexample`][byexample].
 
 [byexample]: https://byexamples.github.io/byexample/
+
+## Project Layout
+
+- direnv used to automatically set up shell environment, see [`.envrc`](./.envrc).
+- Nix shell used to provide developer tools like Bazel itself, see [`shell.nix`](./shell.nix)
+- Nix dependencies pinned under [`nix/`](./nix).
+- Bazel layout
+  - [`WORKSPACE`](./WORKSPACE) defines root of Bazel project and defines external dependencies
+    - Uses `http_archive` to import Bazel dependencies
+    - Uses `nixpkgs_package` to import Nix dependencies into Bazel
+    - Uses other rule sets' dedicated repository rules to import their dependencies, e.g. Go or NodeJS.
+  - `BUILD.bazel` files define Bazel packages and targets in that package
 
 ## Before you get started
 Take a look at these [informational slides](https://docs.google.com/presentation/d/1vNuuY97NmxP85MLEheYcMDHbpFb6cwSYWPNloBqdrPM/edit#slide=id.p) to learn about Bazel.
