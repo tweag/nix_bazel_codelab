@@ -46,6 +46,7 @@ It has been adapted to
     - Uses `http_archive` to import Bazel dependencies
     - Uses `nixpkgs_package` to import Nix dependencies into Bazel
     - Uses other rule sets' dedicated repository rules to import their dependencies, e.g. Go or NodeJS.
+  - `.bazelrc` configures Bazel
   - `BUILD.bazel` files define Bazel packages and targets in that package
 
 ## Before you get started
