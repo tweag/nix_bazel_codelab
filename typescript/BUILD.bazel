@@ -4,7 +4,6 @@ load("@npm//@bazel/typescript:index.bzl", "ts_library")
 concatjs_devserver(
     name = "devserver",
     entry_module = "bootcamp/typescript/app",
-    port = 8088,
     deps = [":app"],
 )
 

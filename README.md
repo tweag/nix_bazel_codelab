@@ -198,16 +198,33 @@ Build a Go server that receives log messages in the format defined in `proto/log
 
 ## Section 5: Typescript web frontend
 
-1.  Edit the `WORKSPACE` to uncomment the typescript relevant portions
-1.  Edit the `BUILD` file for `logger.proto`
-    - [`ts_proto_library` documentation](https://www.npmjs.com/package/@bazel/typescript#ts_proto_library)
-1.  Edit the `BUILD` file for `app.ts`
-    - [`ts_library` usage example](https://www.npmjs.com/package/@bazel/typescript#compiling-typescript-ts_library) and        [`ts_library` documentation](https://www.npmjs.com/package/@bazel/typescript#ts_library)
-1.  Run the webserver using `bazel run`. It will print out a link which you can click on.
-    If the link doesn't work, go to http://localhost:8080 instead
-1.  Run the Go server and Java client from the previous steps. Send messages from the Java
-    client to the Go server and see them appear on the web frontend
+1.  Edit `proto/logger/BUILD.bazel`
+    1. Add a TypeScript `protobuf` library implementing `logger.proto`
+        - name it `logger_ts_proto`
+        - use [`ts_proto_library()`][ts_proto_library]
+1.  Edit `typescript/BUILD.bazel`
+    1. Add a target for the TypeScript app `app.ts`
+        - use [`ts_library()`][ts_project]
+            - NOTE: the same interface applies as for `ts_project()`
+        - add `logger_ts_proto` as a dependency
+    2. Add a target for a development server
+        - name it `devserver`
+        - use [`concatjs_devserver()`][concatjs]
+            - set `entry_module = "bootcamp/typescript/app"` to make it work correctly
+        - add the `ts_library` target as dependency
+1.  Run the webserver using `bazel run //typescript:devserver`
+    - it will print a link which you can click on
+    - if the link does not work, try [`http://localhost:5432`][http://localhost:5432]
+1.  Run the Go server and Java client from the previous steps.
+    - send messages from the Java client to the Go server
+    - click the button on the web front end to see them in your web browser
+
+[ts_proto_library]: https://github.com/bazelbuild/rules_nodejs/tree/4.x/packages/labs/grpc_web
+[ts_project]: https://www.npmjs.com/package/@bazel/typescript#user-content-typical-usage
+[concatjs]: https://www.npmjs.com/package/@bazel/concatjs#user-content-serving-js-in-development-mode-under-bazel
+
 ## Section 6: Integration test
+
 1.  Edit the `BUILD` file for `integrationtest.sh`
     - [`sh_test` documentation](https://docs.bazel.build/versions/master/be/shell.html#sh_test)
 1.  Run the test using `bazel test` and make sure that it passes
