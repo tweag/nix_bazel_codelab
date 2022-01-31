@@ -55,15 +55,23 @@ It has been adapted to
 
 Read up on Bazel [Concepts and Terminology][concepts].
 
-[concepts]: https://docs.bazel.build/versions/main/build-ref.html)
+[concepts]: https://docs.bazel.build/versions/main/build-ref.html
 
-## Enter `nix-shell`
+## Install Nix and enter `nix-shell`
+
+Install Nix with
+
+```sh
+sh <(curl -L https://nixos.org/nix/install) --daemon
+```
+
+All commands from the instructions are expected to run in the environment created by entering
 
 ```sh
 nix-shell
 ```
 
-If you want to use your favorite shell (e.g. `fish`) that you have already installed:
+If you want to use your favorite shell (e.g. `fish`) installed on your system:
 
 ```sh
 nix-shell --run fish
