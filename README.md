@@ -134,17 +134,42 @@ Build a Go server that receives log messages in the format defined in `proto/log
 
 ## Section 3: Java client
 
-1.  Edit the `BUILD` file for `logger.proto`
-    - [`java_proto_library` documentation](https://docs.bazel.build/versions/master/be/java.html#java_proto_library)
-    - [`java_grpc_library` documentation](https://grpc.io/docs/reference/java/generated-code.html) (look towards the
-      bottom of the page for Bazel related documentation)
-1.  Edit the `BUILD` file for `JavaLoggingClientLibrary.java`
-    - [`java_library` documentation](https://docs.bazel.build/versions/master/be/java.html#java_library)
-1.  Edit the `BUILD` file for `JavaLoggingClient.java`
-    - [`java_binary` documentation](https://docs.bazel.build/versions/master/be/java.html#java_binary)
-1.  `bazel run` the Java binary you wrote
-1.  `bazel run` the Go binary from Section 2
-1.  Send messages from the client to the server and view them on http://localhost:8081
+1.  Edit `proto/logger/BUILD.bazel`
+    1. Add a Java library for data structurs in `logger.proto`
+        - name it `logger_java_proto`
+        - use [`java_proto_library`][java_proto_library]
+    2. Add a Java library implementing the `gRPC` service `Logger` defined in `logger.proto`
+        - name it `logger_java_grpc`
+        - use [`java_grpc_library`][java_grpc_library]
+1.  Edit `java/src/main/java/bazel/bootcamp/BUILD.bazel`
+    1. Add a Java library implementing the logging client
+        - name it `JavaLoggingClientLibrary`
+        - use [`java_library`](https://docs.bazel.build/versions/master/be/java.html#java_library)
+        - use `JavaLoggingClientLibrary.java` as source
+        - declare depencies on `*_proto` and `*_grpc` targets created in previous steps
+        - TODO: explain additional dependencies
+    2. Add a Java binary for the client
+        - name it `JavaLoggingClient`
+        - use [`java_binary`](https://docs.bazel.build/versions/master/be/java.html#java_binary)
+        - use `JavaLoggigClient.java` as source
+        - declare a dependency on `JavaLoggingClientLibrary`
+1.  Run the Java binary with
+    ```
+    bazel run //java/src/main/java/bazel/bootcamp:JavaLoggingClient
+    ```
+    - [workaround][workaround] for an [open `nixpkgs` issue on macOS][nixpkgs-issue]
+      ```
+      env CC=gcc bazel run //java/src/main/java/bazel/bootcamp:JavaLoggingClient
+      ```
+      Note that it will not work by fixing `CC` to either `clang` or `clang++`, as both `C` and `C++` dependencies are present!
+
+1.  Run the Go binary from [Section 2](#section-2-go-server) from another `nix-shell`
+1.  Type messages to send from the client to the server and view them on [`http://localhost:8081`](http://localhost:8081)
+
+[java_proto_library]: https://docs.bazel.build/versions/master/be/java.html#java_proto_library
+[java_grpc_library]: https://grpc.io/docs/languages/java/generated-code/#codegen
+[workaround]: https://github.com/NixOS/nixpkgs/issues/150655#issuecomment-993695804
+[nixpkgs-issue]: https://github.com/NixOS/nixpkgs/issues/150655
 
 ## Section 4: Java client unit tests
 1.  Edit the `BUILD` file for `JavaLoggingClientLibraryTest.java`
