@@ -1,5 +1,7 @@
 # Nix+Bazel Codelab
 
+This set of exercises is a practical introduction to building polyglot projects with Bazel, supported by Nix for reproducible, hermetic build environments.
+
 ## Background
 
 This codelab is based on Google's [Bazel Codelab](https://github.com/bazelbuild/codelabs).
@@ -54,6 +56,18 @@ It has been adapted to
 Read up on Bazel [Concepts and Terminology][concepts].
 
 [concepts]: https://docs.bazel.build/versions/main/build-ref.html)
+
+## Enter `nix-shell`
+
+```sh
+nix-shell
+```
+
+If you want to use your favorite shell (e.g. `fish`) that you have already installed:
+
+```sh
+nix-shell --run fish
+```
 
 ## Section 1: Hello, Bazel!
 
