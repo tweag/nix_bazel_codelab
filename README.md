@@ -50,7 +50,8 @@ It has been adapted to
   - `BUILD.bazel` files define Bazel packages and targets in that package
 
 ## Before you get started
-Take a look at these [informational slides](https://docs.google.com/presentation/d/1vNuuY97NmxP85MLEheYcMDHbpFb6cwSYWPNloBqdrPM/edit#slide=id.p) to learn about Bazel.
+
+Read up on Bazel [Concepts and Terminology](https://docs.bazel.build/versions/main/build-ref.html).
 
 ## Section 1: Hello, Bazel!
 
