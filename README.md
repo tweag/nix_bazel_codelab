@@ -108,7 +108,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
         - name it `logger_go_proto`
         - use [`go_proto_library`][go_proto_library]
             - `importpath`
-                - allows importing the library from a known path in `server.go`
+                - allows importing the library from a known package path in `server.go`
             - `compilers`
                 - set to `["@io_bazel_rules_go//proto:go_grpc"]` builds functions implementing the `Logger` service for `gRPC`
 
@@ -172,6 +172,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
 [nixpkgs-issue]: https://github.com/NixOS/nixpkgs/issues/150655
 
 ## Section 4: Java client unit tests
+
 1.  Edit the `BUILD` file for `JavaLoggingClientLibraryTest.java`
     - [`java_test` documentation](https://docs.bazel.build/versions/master/be/java.html#java_test)
     <details> <summary>Hint</summary>Names matter for tests. The <code>java_test</code> for this file should be named <code>JavaLoggingClientLibraryTest</code></details>
@@ -179,6 +180,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
 1.  Run the tests using `bazel test`
 
 ## Section 5: Typescript web frontend
+
 1.  Edit the `WORKSPACE` to uncomment the typescript relevant portions
 1.  Edit the `BUILD` file for `logger.proto`
     - [`ts_proto_library` documentation](https://www.npmjs.com/package/@bazel/typescript#ts_proto_library)
