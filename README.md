@@ -35,7 +35,7 @@ It has been adapted to
 - [x] Set up a Nix shell
 - [x] Import toolchains using `rules_nixpkgs`.
 - [ ] Test that the build succeeds on CI.
-- [ ] Update the tutorial in this `README` and incorporate project layout.
+- [x] Update the tutorial in this `README` and incorporate project layout.
 - [ ] Update `./generate_workspace.sh` and `./generate_build_files.sh` to reflect the Nix based solution.
 - [ ] Replace working `WORKSPACE` and `BUILD.bazel` content with placeholders to be a tutorial.
 - [ ] Consider other options for testing the tutorial, perhaps [`byexample`][byexample].
@@ -225,13 +225,19 @@ Build a Go server that receives log messages in the format defined in `proto/log
 
 ## Section 6: Integration test
 
-1.  Edit the `BUILD` file for `integrationtest.sh`
-    - [`sh_test` documentation](https://docs.bazel.build/versions/master/be/shell.html#sh_test)
+1.  Edit `tests/BUILD.bazel`
+    - add a shell test target for `integrationtest.sh`
+    - use [`sh_test`][sh_test]
+    - add the Go server and Java client targets from previous steps as `data` dependencies
 1.  Run the test using `bazel test` and make sure that it passes
-1.  Run the test using `bazel test <target> --runs_per_test=10` and make sure that it passes
-    <details> <summary>Hint</summary>You may need to modify the <code>BUILD</code> file again to make this work</details>
+1.  Run the test multiple times using `bazel test <target> --runs_per_test=10` and make sure that it passes
 
-## Section 7: Query
-1.  https://docs.bazel.build/versions/master/query-how-to.html
+[sh_test]: https://docs.bazel.build/versions/master/be/shell.html#sh_test
+
+## Section 7: Query dependency graph
+
+1. Read the [Bazel Quary How-To][query] and try the examples to display the dependency graph of the packages in this exercise.
+
+[query]: https://docs.bazel.build/versions/master/query-how-to.html
 
 
