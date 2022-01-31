@@ -99,7 +99,10 @@ Build a Go server that receives log messages in the format defined in `proto/log
     1. Add a library target for a Go `protobuf` library based on `logger.proto`
         - name it `logger_go_proto`
         - use [`go_proto_library`][go_proto_library]
-        - `compilers` and `importpath` are attributes specific to `protobuf` and Go respectively, check the linked examples for details.
+            - `importpath`
+                - allows importing the library from a known path in `server.go`
+            - `compilers`
+                - set to `["@io_bazel_rules_go//proto:go_grpc"]` builds functions implementing the `Logger` service for `gRPC`
 
 [proto_library]: https://docs.bazel.build/versions/master/be/protocol-buffer.html#proto_library
 [deprecated]: https://github.com/bazelbuild/rules_proto/issues/50#issuecomment-602578288
@@ -111,6 +114,8 @@ Build a Go server that receives log messages in the format defined in `proto/log
         - use [`go_binary`][go_binary]
         - add `//proto/logger:logger_go_proto` to `deps`
         - TODO: show how to use [Gazelle][gazelle] to generate dependencies
+        - TODO: discuss separating `binary` and `library` for reuse
+            - maybe add another exercise
 1.  Run the go binary using `bazel run //go/cmd/server:go-server`
     - `run` implies the `build` step
 1.  Check [`http://localhost:8081`](http://localhost:8081)
