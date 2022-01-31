@@ -1,6 +1,6 @@
 # Nix+Bazel Codelab
 
-This set of exercises is a practical introduction to building polyglot projects with Bazel, supported by Nix for reproducible, hermetic build environments.
+This set of exercises is a practical introduction to building polyglot projects with Bazel, supported by Nix for reproducible, hermetic build environments. It works on Linux and macOS.
 
 ## Background
 
