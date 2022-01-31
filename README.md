@@ -1,6 +1,10 @@
 # Nix+Bazel Codelab
 
-This set of exercises is a practical introduction to building polyglot projects with Bazel, supported by Nix for reproducible, hermetic build environments. It works on Linux and macOS.
+This set of exercises is a practical introduction to building polyglot projects with Bazel, supported by Nix for reproducible, hermetic build environments. It is self-contained and works on Linux and macOS.
+
+Please [open an issue](https://github.com/tweag/nix_bazel_codelab/issues/new/choose) if you have questions or encounter problems running the examples.
+
+Please [make a pull request](https://github.com/tweag/nix_bazel_codelab/compare) if you found and fixed an issue.
 
 ## Background
 
@@ -40,7 +44,7 @@ It has been adapted to
 
 ## Project Layout
 
-- `direnv` used to automatically set up shell environment, see [`.envrc`](./.envrc).
+- [`direnv`][direnv] used to automatically set up shell environment, see [`.envrc`](./.envrc).
 - Nix shell used to provide developer tools like Bazel itself, see [`shell.nix`](./shell.nix)
 - Nix dependencies pinned under [`nix/`](./nix).
 - Bazel layout
@@ -50,6 +54,8 @@ It has been adapted to
     - Uses other rule sets' dedicated repository rules to import their dependencies, e.g. Go or NodeJS.
   - `.bazelrc` configures Bazel
   - `BUILD.bazel` files define Bazel packages and targets in that package
+
+[direnv]: https://github.com/direnv/direnv
 
 ## Before you get started
 
@@ -89,7 +95,7 @@ to the console.
 
 1.  Edit `java/src/main/java/bazel/bootcamp/BUILD.bazel`
 1.  Add a binary target for `HelloBazelBootcamp.java`
-    - use [`java_binary`][java_binary]
+    - use [`java_binary()`][java_binary]
     - name it `HelloBazelBootcamp`
 1.  Run the binary using `bazel run //java/src/main/java/bazel/bootcamp:HelloBazelBootcamp`
 
@@ -102,15 +108,15 @@ Build a Go server that receives log messages in the format defined in `proto/log
 1.  Edit `proto/logger/BUILD.bazel`
     1. Add a target for the protocol description
         - name it `logger_proto`
-        - use [`proto_library`][proto_library]
+        - use [`proto_library()`][proto_library]
         - ignore the deprecation warning in the   documentation, [the API is still valid][deprecated]
     1. Add a library target for a Go `protobuf` library based on `logger.proto`
         - name it `logger_go_proto`
-        - use [`go_proto_library`][go_proto_library]
+        - use [`go_proto_library()`][go_proto_library]
             - `importpath`
                 - allows importing the library from a known package path in `server.go`
             - `compilers`
-                - set to `["@io_bazel_rules_go//proto:go_grpc"]` builds functions implementing the `Logger` service for `gRPC`
+                - setting to `["@io_bazel_rules_go//proto:go_grpc"]` builds functions implementing the `Logger` service for `gRPC`
 
 [proto_library]: https://docs.bazel.build/versions/master/be/protocol-buffer.html#proto_library
 [deprecated]: https://github.com/bazelbuild/rules_proto/issues/50#issuecomment-602578288
@@ -119,7 +125,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
 1.  Edit `go/cmd/server/BUILD.bazel`
     1. Add a binary target from `server.go`
         - name it `go-server`
-        - use [`go_binary`][go_binary]
+        - use [`go_binary()`][go_binary]
         - add `//proto/logger:logger_go_proto` to `deps`
         - TODO: show how to use [Gazelle][gazelle] to generate dependencies
         - TODO: discuss separating `binary` and `library` for reuse
@@ -137,20 +143,20 @@ Build a Go server that receives log messages in the format defined in `proto/log
 1.  Edit `proto/logger/BUILD.bazel`
     1. Add a Java library for data structurs in `logger.proto`
         - name it `logger_java_proto`
-        - use [`java_proto_library`][java_proto_library]
+        - use [`java_proto_library()`][java_proto_library]
     2. Add a Java library implementing the `gRPC` service `Logger` defined in `logger.proto`
         - name it `logger_java_grpc`
-        - use [`java_grpc_library`][java_grpc_library]
+        - use [`java_grpc_library()`][java_grpc_library]
 1.  Edit `java/src/main/java/bazel/bootcamp/BUILD.bazel`
     1. Add a Java library implementing the logging client
         - name it `JavaLoggingClientLibrary`
-        - use [`java_library`](https://docs.bazel.build/versions/master/be/java.html#java_library)
+        - use [`java_library()`](https://docs.bazel.build/versions/master/be/java.html#java_library)
         - use `JavaLoggingClientLibrary.java` as source
         - declare depencies on `*_proto` and `*_grpc` targets created in previous steps
         - TODO: explain additional dependencies
     2. Add a Java binary for the client
         - name it `JavaLoggingClient`
-        - use [`java_binary`](https://docs.bazel.build/versions/master/be/java.html#java_binary)
+        - use [`java_binary()`](https://docs.bazel.build/versions/master/be/java.html#java_binary)
         - use `JavaLoggigClient.java` as source
         - declare a dependency on `JavaLoggingClientLibrary`
 1.  Run the Java binary with
@@ -178,7 +184,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
         - name it `JavaLoggingClientLibraryTest`
             - names matter for tests!
             - target name, test class, and file name must be identical
-        - [`java_test`](https://docs.bazel.build/versions/master/be/java.html#java_test)
+        - [`java_test()`](https://docs.bazel.build/versions/master/be/java.html#java_test)
         - use `JavaLoggingClientLibraryTest.java` as source
         - add `JavaLoggingClientLibrary` target from [Section 3](#section-3-java-client) as dependency
     2. Repeat the same for the client binary `JavaLoggingClient`
