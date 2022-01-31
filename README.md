@@ -57,22 +57,53 @@ Read up on Bazel [Concepts and Terminology][concepts].
 
 ## Section 1: Hello, Bazel!
 
-1.  Edit: `java/src/main/java/bazel/bootcamp/BUILD.bazel`
-1.  Add a `java_binary` target for the `HelloBazelBootcamp.java` file
-    - [`java_binary` documentation](https://docs.bazel.build/versions/master/be/java.html#java_binary)
+Build an example Java application that prints
+
+``` plain
+Hello, Bazel!
+```
+
+to the console.
+
+1.  Edit `java/src/main/java/bazel/bootcamp/BUILD.bazel`
+1.  Add a binary target for `HelloBazelBootcamp.java`
+    - use [`java_binary`][java_binary]
+    - name it `HelloBazelBootcamp`
 1.  Run the binary using `bazel run //java/src/main/java/bazel/bootcamp:HelloBazelBootcamp`
 
+[java_binary]: https://docs.bazel.build/versions/master/be/java.html#java_binary
+
 ## Section 2: Go server
-1.  Edit the `BUILD` file for `logger.proto`
-    - [`proto_library` documentation](https://docs.bazel.build/versions/master/be/protocol-buffer.html#proto_library)
-    - [`go_proto_library` documentation](https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#example-grpc)
-    <details> <summary>Hint</summary>Check out the <code>compilers</code> attribute for <code>go_proto_library</code> in the grpc example</details>
-    <details> <summary>Hint</summary>Go libraries each declare the import path at which they would like to be imported by other go files. <code>server.go</code> imports the proto file at <code>bootcamp/proto/logger</code> so the <code>importpath</code> attribute of <code>go_proto_library</code> should match that.</details>
-    
-1.  Edit the `BUILD` file for `server.go`
-    - [`go_binary` documentation](https://github.com/bazelbuild/rules_go/blob/master/go/core.rst#go_binary)    
-1.  Run the go binary using `bazel run`
-1.  Go to http://localhost:8081 to see results (there won't be any logs yet)
+
+Build a Go server that receives log messages in the format defined in `proto/logger/logger.proto`.
+
+1.  Edit `proto/logger/BUILD.bazel`
+    1. Add a target for the protocol description
+        - name it `logger_proto`
+        - use [`proto_library`][proto_library]
+        - ignore the deprecation warning in the   documentation, [the API is still valid][deprecated]
+    1. Add a library target for a Go `protobuf` library based on `logger.proto`
+        - name it `logger_go_proto`
+        - use [`go_proto_library`][go_proto_library]
+        - `compilers` and `importpath` are attributes specific to `protobuf` and Go respectively, check the linked examples for details.
+
+[proto_library]: https://docs.bazel.build/versions/master/be/protocol-buffer.html#proto_library
+[deprecated]: https://github.com/bazelbuild/rules_proto/issues/50#issuecomment-602578288
+[go_proto_library]: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#example-grpc
+
+1.  Edit `go/cmd/server/BUILD.bazel`
+    1. Add a binary target from `server.go`
+        - name it `go-server`
+        - use [`go_binary`][go_binary]
+        - add `//proto/logger:logger_go_proto` to `deps`
+        - TODO: show how to use [Gazelle][gazelle] to generate dependencies
+1.  Run the go binary using `bazel run //go/cmd/server:go-server`
+    - `run` implies the `build` step
+1.  Check [`http://localhost:8081`](http://localhost:8081)
+    - it should display
+      > "No log messages received yet."
+
+[go_binary]: https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/rules.md#rules
 
 ## Section 3: Java client
 
@@ -105,7 +136,6 @@ Read up on Bazel [Concepts and Terminology][concepts].
     If the link doesn't work, go to http://localhost:8080 instead
 1.  Run the Go server and Java client from the previous steps. Send messages from the Java
     client to the Go server and see them appear on the web frontend
-    
 ## Section 6: Integration test
 1.  Edit the `BUILD` file for `integrationtest.sh`
     - [`sh_test` documentation](https://docs.bazel.build/versions/master/be/shell.html#sh_test)
