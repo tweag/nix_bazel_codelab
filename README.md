@@ -173,11 +173,22 @@ Build a Go server that receives log messages in the format defined in `proto/log
 
 ## Section 4: Java client unit tests
 
-1.  Edit the `BUILD` file for `JavaLoggingClientLibraryTest.java`
-    - [`java_test` documentation](https://docs.bazel.build/versions/master/be/java.html#java_test)
-    <details> <summary>Hint</summary>Names matter for tests. The <code>java_test</code> for this file should be named <code>JavaLoggingClientLibraryTest</code></details>
-1.  Edit the `BUILD` file for `JavaLoggingClientTest.java`
-1.  Run the tests using `bazel test`
+1.  Edit `java/src/main/java/bazel/bootcamp/BUILD.bazel`
+    1. Add a test target for `JavaLoggingClientLibrary`
+        - name it `JavaLoggingClientLibraryTest`
+            - names matter for tests!
+            - target name, test class, and file name must be identical
+        - [`java_test`](https://docs.bazel.build/versions/master/be/java.html#java_test)
+        - use `JavaLoggingClientLibraryTest.java` as source
+        - add `JavaLoggingClientLibrary` target from [Section 3](#section-3-java-client) as dependency
+    2. Repeat the same for the client binary `JavaLoggingClient`
+1.  Run tests
+    - TODO: this is not a unit test, it depends on the server! write a mock?
+    - start Go server in another `nix-shell`, as in [Section 2](#section-2-go-server)
+    - run Java client tests
+      ```
+      bazel test //java/src/main/java/bazel/bootcamp:JavaLoggingClientLibraryTest
+      ```
 
 ## Section 5: Typescript web frontend
 
