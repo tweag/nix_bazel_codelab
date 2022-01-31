@@ -38,7 +38,7 @@ It has been adapted to
 
 ## Project Layout
 
-- direnv used to automatically set up shell environment, see [`.envrc`](./.envrc).
+- `direnv` used to automatically set up shell environment, see [`.envrc`](./.envrc).
 - Nix shell used to provide developer tools like Bazel itself, see [`shell.nix`](./shell.nix)
 - Nix dependencies pinned under [`nix/`](./nix).
 - Bazel layout
