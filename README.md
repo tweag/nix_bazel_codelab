@@ -51,7 +51,9 @@ It has been adapted to
 
 ## Before you get started
 
-Read up on Bazel [Concepts and Terminology](https://docs.bazel.build/versions/main/build-ref.html).
+Read up on Bazel [Concepts and Terminology][concepts].
+
+[concepts]: https://docs.bazel.build/versions/main/build-ref.html)
 
 ## Section 1: Hello, Bazel!
 
