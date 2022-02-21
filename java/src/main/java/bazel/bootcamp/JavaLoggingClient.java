@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class JavaLoggingClient {
 
   public static void main(String[] args) throws Exception {
-    JavaLoggingClientLibrary client = new JavaLoggingClientLibrary("localhost", 50051);
+    JavaLoggingClientLibrary client = new JavaLoggingClientLibrary("localhost", 8888);
     System.out.println(
         "Enter log messages to send to the server, enter 'exit' to stop the client.");
     Scanner scanner = new Scanner(System.in);

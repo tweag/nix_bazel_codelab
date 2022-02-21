@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 readonly GO_SERVER="$(find "${TEST_SRCDIR}" -name go-server)"

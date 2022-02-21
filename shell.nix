@@ -3,5 +3,5 @@
 with pkgs;
 
 mkShell {
-  buildInputs = [ bazel_4 bazelisk buildozer nix ];
+  buildInputs = [ bazel_4 buildifier buildozer nix ];
 }

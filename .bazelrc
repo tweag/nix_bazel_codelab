@@ -2,6 +2,7 @@ build --incompatible_strict_action_env
 
 build --host_platform=@io_tweag_rules_nixpkgs//nixpkgs/platforms:host
 
+# Legacy Java toolchain flags. With Bazel >=5.0 Java uses platforms & toolchains.
 build --javabase=@nixpkgs_java_runtime//:runtime
 build --host_javabase=@nixpkgs_java_runtime//:runtime
 build --java_toolchain=@bazel_tools//tools/jdk:toolchain_java11
