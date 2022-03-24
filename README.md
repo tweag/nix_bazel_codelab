@@ -64,6 +64,21 @@ Read up on Bazel [Concepts and Terminology][concepts].
 
 [concepts]: https://docs.bazel.build/versions/main/build-ref.html
 
+## Running on NixOS
+
+If you're running NixOS you're going to have to apply [a patch][rules_proto_nixos_patch] to `rules_proto`,
+because they're currently using a prebuilt compiler, in which the linker is hardcoded to `/lib64/ld-linux-x86-64.so.2`.
+The patch will instead force `rules_proto` to rebuild `protoc`, so we can link it properly.
+Note that this solution is not ideal: optimally we would be getting `protoc` from `nixpkgs` and hooking it into `rules_proto`.
+
+See [this issue][rules_proto_protoc_issue] for a discussion on the topic.
+
+Hint: `http_archive` [supports][http_archive_attributes] applying patches to whatever it downloads.
+
+[rules_proto_nixos_patch]: patches/rules_proto/nixos.patch
+[http_archive_attributes]: https://bazel.build/rules/lib/repo/http#attributes
+[rules_proto_protoc_issue]: https://github.com/bazelbuild/rules_proto/issues/115
+
 ## Install Nix and enter `nix-shell`
 
 Install the [Nix package manager](https://nixos.org/explore.html) with
