@@ -256,7 +256,7 @@ Build a Java client which sends log messages to the server, in the format define
 
 ## Section 7: Query dependency graph
 
-1. Read the [Bazel Quary How-To][query] and try the examples to display the dependency graph of the packages in this exercise.
+1. Read the [Bazel Query How-To][query] and try the examples to display the dependency graph of the packages in this exercise.
 
 [query]: https://docs.bazel.build/versions/master/query-how-to.html
 
