@@ -23,26 +23,6 @@ It has been adapted to
 [rules_nixpkgs]: https://github.com/tweag/rules_nixpkgs
 [nixpkgs]: https://github.com/NixOS/nixpkgs
 
-## TODO
-
-- [x] Base on `./generate_workspace.sh` and `./generate_build_files.sh`.
-- [x] Format using `buildifier`.
-- [x] Rename `BUILD` files to `BUILD.bazel`.
-- [x] Update Bazel rule sets
-- [x] Use Go mod to manage Go dependencies.
-- [x] Use Gazelle to import Go dependencies and manage Go targets.
-- [x] Update typescript targets for compatibility and use `concatjs` for development server.
-- [x] Set up a Nix shell
-- [x] Import toolchains using `rules_nixpkgs`.
-- [ ] Test that the build succeeds on CI.
-- [x] Update the tutorial in this `README` and incorporate project layout.
-- [ ] Update `./generate_workspace.sh` and `./generate_build_files.sh` to reflect the Nix based solution.
-- [ ] Replace working `WORKSPACE` and `BUILD.bazel` content with placeholders to be a tutorial.
-- [ ] Consider other options for testing the tutorial, perhaps [`byexample`][byexample].
-- [ ] Add exercise to create Go build instructions with Gazelle.
-
-[byexample]: https://byexamples.github.io/byexample/
-
 ## Project Layout
 
 - [`direnv`][direnv] used to automatically set up shell environment, see [`.envrc`](./.envrc).
