@@ -70,6 +70,9 @@ rules_cc_toolchains()
 # BEGIN: Protobuf dependencies
 http_archive(
     name = "rules_proto",
+    # !! uncomment the following two lines if you're using NixOS !!
+    #patch_args = ["-p1"],
+    #patches = ["@//:patches/rules_proto/nixos.patch"],
     sha256 = "66bfdf8782796239d3875d37e7de19b1d94301e8972b3cbd2446b332429b4df1",
     strip_prefix = "rules_proto-4.0.0",
     urls = [
