@@ -2,62 +2,18 @@
 
 This set of exercises is a practical introduction to building polyglot projects with Bazel, supported by Nix for reproducible, hermetic build environments. It is self-contained and works on Linux and macOS.
 
+This codelab is based on Google's [Bazel Codelab](https://github.com/bazelbuild/codelabs).
+
 Please [open an issue](https://github.com/tweag/nix_bazel_codelab/issues/new/choose) if you have questions or encounter problems running the examples.
 
+See the [contribution guide](./CONTRIBUTING.md) for hints to make changes.
 Please [make a pull request](https://github.com/tweag/nix_bazel_codelab/compare) if you found and fixed an issue.
-
-## Background
-
-This codelab is based on Google's [Bazel Codelab](https://github.com/bazelbuild/codelabs).
-It has been adapted to
-
-- Use more recent versions of the required Bazel rule sets.
-- Follow best practices such as formatting with [`buildifier`][buildifier] or using `BUILD.bazel` files instead of `BUILD` files.
-- Manage Go dependencies and targets using [Gazelle][gazelle].
-- Use [Nix][nix] to provide Bazel and other developer tools in a Nix shell.
-- Use [`rules_nixpkgs`][rules_nixpkgs] to import Nix provided toolchains from [`nixpkgs`][nixpkgs].
-
-[buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
-[gazelle]: https://github.com/bazelbuild/bazel-gazelle
-[nix]: https://nixos.org/
-[rules_nixpkgs]: https://github.com/tweag/rules_nixpkgs
-[nixpkgs]: https://github.com/NixOS/nixpkgs
-
-## Project Layout
-
-- [`direnv`][direnv] used to automatically set up shell environment, see [`.envrc`](./.envrc).
-- Nix shell used to provide developer tools like Bazel itself, see [`shell.nix`](./shell.nix)
-- Nix dependencies pinned under [`nix/`](./nix).
-- Bazel layout
-  - [`WORKSPACE`](./WORKSPACE) defines root of Bazel project and defines external dependencies
-    - Uses `http_archive` to import Bazel dependencies
-    - Uses `nixpkgs_package` to import Nix dependencies into Bazel
-    - Uses other rule sets' dedicated repository rules to import their dependencies, e.g. Go or NodeJS.
-  - `.bazelrc` configures Bazel
-  - `BUILD.bazel` files define Bazel packages and targets in that package
-
-[direnv]: https://github.com/direnv/direnv
 
 ## Before you get started
 
 Read up on Bazel [Concepts and Terminology][concepts].
 
 [concepts]: https://docs.bazel.build/versions/4.2.1/build-ref.html
-
-## Running on NixOS
-
-If you're running NixOS you're going to have to apply [a patch][rules_proto_nixos_patch] to `rules_proto`,
-because they're currently using a prebuilt compiler, in which the linker is hardcoded to `/lib64/ld-linux-x86-64.so.2`.
-The patch will instead force `rules_proto` to rebuild `protoc`, so we can link it properly.
-Note that this solution is not ideal: optimally we would be getting `protoc` from `nixpkgs` and hooking it into `rules_proto`.
-
-See [this issue][rules_proto_protoc_issue] for a discussion on the topic.
-
-Hint: `http_archive` [supports][http_archive_attributes] applying patches to whatever it downloads.
-
-[rules_proto_nixos_patch]: patches/rules_proto/nixos.patch
-[http_archive_attributes]: https://bazel.build/rules/lib/repo/http#attributes
-[rules_proto_protoc_issue]: https://github.com/bazelbuild/rules_proto/issues/115
 
 ## Install Nix and enter `nix-shell`
 
@@ -80,6 +36,10 @@ nix-shell --run fish
 ```
 
 Use [`direnv`](https://direnv.net/) to automatically set up the environment when changing to this project's directory.
+
+### Running on NixOS
+
+On NixOS you will to have to apply [a patch](/WORKSPACE#L73-L75) to `rules_proto`.
 
 ## Section 1: Hello, Bazel!
 
@@ -135,6 +95,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
       > "No log messages received yet."
 
 [go_binary]: https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/rules.md#rules
+[gazelle]: https://github.com/bazelbuild/bazel-gazelle
 
 ## Section 3: Java client
 
