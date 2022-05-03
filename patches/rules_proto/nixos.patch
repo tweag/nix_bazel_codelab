@@ -20,8 +20,7 @@ index 4c2a43f..b37d83c 100644
 +    # `rules_proto` is currently using a prebuilt compiler, in which the linker is hardcoded to `/lib64/ld-linux-x86-64.so.2`.
 +    # The patch will force `rules_proto` to rebuild `protoc`, so we can link it properly for NixOS.
 +    # Note that this solution is not ideal: optimally we would be getting `protoc` from `nixpkgs` and hooking it into `rules_proto`.
-+    # See [this issue][rules_proto_protoc_issue] for a discussion on the topic.
-+    # [rules_proto_protoc_issue]: https://github.com/bazelbuild/rules_proto/issues/115
++    # See https://github.com/bazelbuild/rules_proto/issues/115 for a discussion on the topic.
 +    actual = "@com_github_protocolbuffers_protobuf//:protoc",
      visibility = ["//visibility:public"],
  )
