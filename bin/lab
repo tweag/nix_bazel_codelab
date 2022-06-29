@@ -1,0 +1,124 @@
+#!/bin/sh
+
+function usage {
+    SCRIPTNAME="$(basename $0)"
+    cat <<EOF
+Usage: ./${SCRIPTNAME} [compare|display|install|help] path/to/BUILD.bazel
+
+    compare: show the differences between the solution and your version
+    display: display the solution (aliased to cat and show)
+    install: copy the solution, overwrite file if any
+
+Usage: ./${SCRIPTNAME} install_all
+
+    install_all: copy all the solutions files, overwriting files if any
+
+Example: ./${SCRIPTNAME} compare go/cmd/server/BUILD.bazel
+EOF
+    exit 0
+}
+
+function die {
+    echo "$1"
+    exit 1
+}
+
+# display a diff
+function diffing {
+    diff -u "solutions/$1" "$1"
+}
+
+# display the solution file
+function show {
+    cat "solutions/$1"
+}
+
+# overwrite the file with its solution
+function copy {
+    cp -f "solutions/$1" "$1"
+}
+
+# install all solutions
+function copy_all {
+    cd solutions && find . -type f -exec cp -f {} ../{} \; \
+        || die "An error occured while copying files"
+    echo "Solutions installed succesfully:"
+    echo ""
+    find . -type f
+}
+
+# check we are in the top level of the git repository
+# and in the correct git repository
+function check_matching_git_repository {
+
+    # check matching git
+    GIT_TOPLEVEL="$(git rev-parse --show-toplevel 2>/dev/null)"
+    if ! [ -d "${GIT_TOPLEVEL}/.git" ]
+    then
+        echo "Error, you must be in a git repository"
+        exit 1
+    fi
+
+    if ! grep "tweag/nix_bazel_codelab" "${GIT_TOPLEVEL}/.git/config" >/dev/null 2>/dev/null
+    then
+        echo "Error, this git repository is not a clone of https://github.com/tweag/nix_bazel_codelab"
+        exit 1
+    fi
+
+    if ! [ "$(pwd -P)" = "$GIT_TOPLEVEL" ]
+    then
+        echo "Error, this script must be used in ${GIT_TOPLEVEL}"
+        exit 1
+    fi
+}
+# END OF FUNCTION DECLARATION
+
+
+# ensure we are in the correct place to run the code
+check_matching_git_repository
+
+case "$1" in
+    compare)
+        FUNCTION="diffing"
+        ;;
+    display|cat|show)
+        FUNCTION="show"
+        ;;
+    install)
+        FUNCTION="copy"
+        ;;
+    install_all)
+        copy_all
+        exit 0
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+# we used $1 so discard it
+shift
+
+# check for missing filename
+if [ "$#" -ne 1 ]
+then
+    echo "You need to pass a file path relative to the project as a parameter"
+    echo "Try './$(basename $0) help' for more information"
+    exit 1
+fi
+
+# check if the file given as paramter exists
+if [ -f "$1" ]
+then
+    # check we have a solution for this file
+    if [ -f "solutions/$1" ]
+    then
+        $FUNCTION "$1"
+    else
+        echo "We don't have a solution for the file $1"
+        echo "If you think this file deserves a solution, open a PR"
+    fi
+else
+   echo "File $1 can't be found"
+   exit 2
+fi
