@@ -1,3 +1,4 @@
+#!/bin/sh
 # This file is used for Bazel CI to write the WORKSPACE file for the project.
 
 # You can use it to see the final solutions but note that it will delete your existing
