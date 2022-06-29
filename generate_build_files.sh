@@ -142,4 +142,4 @@ exports_files(["tsconfig.json"])
 EOF
 
 # write WORKSPACE file
-${SHELL} ./generate_workspace.sh
+./generate_workspace.sh
