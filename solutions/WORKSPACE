@@ -1,11 +1,3 @@
-#!/bin/sh
-# This file is used for Bazel CI to write the WORKSPACE file for the project.
-
-# You can use it to see the final solutions but note that it will delete your existing
-# WORKSPACE files if you started working.
-
-# write WORKSPACE file
-cat > WORKSPACE <<EOF
 workspace(name = "bootcamp")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -16,7 +8,6 @@ http_archive(
     sha256 = "1969a89e8da396eb7754fd0247b7df39b6df433c3dcca0095b4ba30a5409cc9d",
     strip_prefix = "rules_java-32ddd6c4f0ad38a54169d049ec05febc393b58fc",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_java/archive/32ddd6c4f0ad38a54169d049ec05febc393b58fc.tar.gz",
         "https://github.com/bazelbuild/rules_java/archive/32ddd6c4f0ad38a54169d049ec05febc393b58fc.tar.gz",
     ],
 )
@@ -130,4 +121,3 @@ install_bazel_dependencies()
 load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
 ts_setup_workspace()
 # END: Typescript dependencies
-EOF
