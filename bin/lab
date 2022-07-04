@@ -25,6 +25,14 @@ go_to_git_toplevel() {
 
 resolve_file_toplevel() {
     GIT_TOPLEVEL="$(git rev-parse --show-toplevel 2>/dev/null)"
+
+    # exit quickly if the current directory is the top level
+    if [ "$(pwd -P)" = "${GIT_TOPLEVEL}" ]
+    then
+        echo "$1"
+        exit 0
+    fi
+
     # if we pass a file path
     # return the file path relative to the top directory
     if [ -n "$1" ]
