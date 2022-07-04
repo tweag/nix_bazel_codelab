@@ -38,6 +38,19 @@ It has been adapted to
 
 [direnv]: https://github.com/direnv/direnv
 
+## Check your files against a known solution
+
+The repository contains bazel build files that are known to work, they are shipped in the `solutions` subdirectory of the project.
+
+A script named `lab` is added to your environment with `nix-shell`, it helps using the solutions files.
+
+`lab` can be used in multiple ways:
+- `lab help` to get help and examples of use
+- `lab compare $file` to view a difference between your file and the solution if exists
+- `lab display $file` to view its solution if any
+- `lab install $file` to copy the solution if any (this will replace your work!)
+- `lab install_all` install all solutions file, the project should compile fine after running this command
+
 ## Before you get started
 
 Read up on Bazel [Concepts and Terminology][concepts].
