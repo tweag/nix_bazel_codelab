@@ -125,7 +125,7 @@ fi
 FILE=$(resolve_file_toplevel "$1")
 go_to_git_toplevel
 
-# check if the file given as paramter exists
+# check if the file given as parameter exists
 if [ -f "$FILE" ]
 then
     # check we have a solution for this file
