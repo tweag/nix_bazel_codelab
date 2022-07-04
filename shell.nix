@@ -6,6 +6,5 @@ in
 with pkgs;
 
 mkShell {
-  buildInputs = [ bazel_4 buildifier buildozer nix ];
-  packages = [ lab-script ];
+  packages = [ lab-script bazel_4 buildifier buildozer nix ];
 }
