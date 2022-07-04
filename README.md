@@ -40,7 +40,7 @@ It has been adapted to
 
 ## Check your files against a known solution
 
-The repository contains bazel build files that are known to work, they are shipped in the `solutions` subdirectory of the project.
+The repository contains bazel build files that are known to work, they are shipped in the [`solutions`](solutions) subdirectory of the project.
 
 A script named `lab` is added to your environment with `nix-shell`, it helps using the solutions files.
 
