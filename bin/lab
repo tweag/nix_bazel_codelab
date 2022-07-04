@@ -18,6 +18,22 @@ EOF
     exit 0
 }
 
+function go_to_git_toplevel {
+    GIT_TOPLEVEL="$(git rev-parse --show-toplevel 2>/dev/null)"
+    cd "$GIT_TOPLEVEL"
+}
+
+function resolve_file_toplevel {
+    GIT_TOPLEVEL="$(git rev-parse --show-toplevel 2>/dev/null)"
+    # if we pass a file path
+    # return the file path relative to the top directory
+    if [ -n "$1" ]
+    then
+        WITHIN_DIR=$(echo "$PWD" | sed "s,${GIT_TOPLEVEL},," | sed "s,^/,,")
+        echo "${WITHIN_DIR}/$1"
+    fi
+}
+
 function die {
     echo "$1"
     exit 1
@@ -40,6 +56,7 @@ function copy {
 
 # install all solutions
 function copy_all {
+    test -d solutions || die "Can't find the solutions directory in $PWD"
     cd solutions && find . -type f -exec cp -f {} ../{} \; \
         || die "An error occured while copying files"
     echo "Solutions installed succesfully:"
@@ -64,12 +81,6 @@ function check_matching_git_repository {
         echo "Error, this git repository is not a clone of https://github.com/tweag/nix_bazel_codelab"
         exit 1
     fi
-
-    if ! [ "$(pwd -P)" = "$GIT_TOPLEVEL" ]
-    then
-        echo "Error, this script must be used in ${GIT_TOPLEVEL}"
-        exit 1
-    fi
 }
 # END OF FUNCTION DECLARATION
 
@@ -88,6 +99,7 @@ case "$1" in
         FUNCTION="copy"
         ;;
     install_all)
+        go_to_git_toplevel
         copy_all
         exit 0
         ;;
@@ -102,23 +114,28 @@ shift
 # check for missing filename
 if [ "$#" -ne 1 ]
 then
-    echo "You need to pass a file path relative to the project as a parameter"
+    echo "You need to pass a file from the project as a parameter"
     echo "Try './$(basename $0) help' for more information"
     exit 1
 fi
 
+# fix PWD and file path to be
+# relative to the git toplevel directory
+FILE=$(resolve_file_toplevel "$1")
+go_to_git_toplevel
+
 # check if the file given as paramter exists
-if [ -f "$1" ]
+if [ -f "$FILE" ]
 then
     # check we have a solution for this file
-    if [ -f "solutions/$1" ]
+    if [ -f "solutions/$FILE" ]
     then
-        $FUNCTION "$1"
+        $FUNCTION "$FILE"
     else
-        echo "We don't have a solution for the file $1"
+        echo "We don't have a solution for the file $FILE"
         echo "If you think this file deserves a solution, open a PR"
     fi
 else
-   echo "File $1 can't be found"
+   echo "File $FILE can't be found"
    exit 2
 fi
