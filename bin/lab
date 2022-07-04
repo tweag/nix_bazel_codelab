@@ -1,7 +1,7 @@
 #!/bin/sh
 
-function usage {
-    SCRIPTNAME="$(basename $0)"
+usage() {
+    SCRIPTNAME="$(basename "$0")"
     cat <<EOF
 Usage: ./${SCRIPTNAME} [compare|display|install|help] path/to/BUILD.bazel
 
@@ -18,12 +18,12 @@ EOF
     exit 0
 }
 
-function go_to_git_toplevel {
+go_to_git_toplevel() {
     GIT_TOPLEVEL="$(git rev-parse --show-toplevel 2>/dev/null)"
-    cd "$GIT_TOPLEVEL"
+    cd "$GIT_TOPLEVEL" || die "Can't cd into $GIT_TOPLEVEL"
 }
 
-function resolve_file_toplevel {
+resolve_file_toplevel() {
     GIT_TOPLEVEL="$(git rev-parse --show-toplevel 2>/dev/null)"
     # if we pass a file path
     # return the file path relative to the top directory
@@ -34,30 +34,31 @@ function resolve_file_toplevel {
     fi
 }
 
-function die {
+die() {
     echo "$1"
     exit 1
 }
 
 # display a diff
-function diffing {
+diffing() {
     diff -u "solutions/$1" "$1"
 }
 
 # display the solution file
-function show {
+show() {
     cat "solutions/$1"
 }
 
 # overwrite the file with its solution
-function copy {
+copy() {
     cp -f "solutions/$1" "$1"
 }
 
 # install all solutions
-function copy_all {
+copy_all() {
     test -d solutions || die "Can't find the solutions directory in $PWD"
-    cd solutions && find . -type f -exec cp -f {} ../{} \; \
+    cd solutions || die "Can't cd into the solutions directory"
+    find . -type f -exec cp -f {} ../{} \; \
         || die "An error occured while copying files"
     echo "Solutions installed succesfully:"
     echo ""
@@ -66,7 +67,7 @@ function copy_all {
 
 # check we are in the top level of the git repository
 # and in the correct git repository
-function check_matching_git_repository {
+check_matching_git_repository() {
 
     # check matching git
     GIT_TOPLEVEL="$(git rev-parse --show-toplevel 2>/dev/null)"
@@ -115,7 +116,7 @@ shift
 if [ "$#" -ne 1 ]
 then
     echo "You need to pass a file from the project as a parameter"
-    echo "Try './$(basename $0) help' for more information"
+    echo "Try './$(basename "$0") help' for more information"
     exit 1
 fi
 
