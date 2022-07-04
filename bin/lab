@@ -3,17 +3,17 @@
 usage() {
     SCRIPTNAME="$(basename "$0")"
     cat <<EOF
-Usage: ./${SCRIPTNAME} [compare|display|install|help] path/to/BUILD.bazel
+Usage: ${SCRIPTNAME} [compare|display|install|help] path/to/BUILD.bazel
 
     compare: show the differences between the solution and your version
     display: display the solution (aliased to cat and show)
     install: copy the solution, overwrite file if any
 
-Usage: ./${SCRIPTNAME} install_all
+Usage: ${SCRIPTNAME} install_all
 
     install_all: copy all the solutions files, overwriting files if any
 
-Example: ./${SCRIPTNAME} compare go/cmd/server/BUILD.bazel
+Example: ${SCRIPTNAME} compare go/cmd/server/BUILD.bazel
 EOF
     exit 0
 }
