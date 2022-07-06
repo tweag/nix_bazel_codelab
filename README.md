@@ -99,7 +99,7 @@ Use [`direnv`](https://direnv.net/) to automatically set up the environment when
 This project contains missing pieces that you will have to write, with some guidance, to make it compile again.
 
 In the files that require editing, you will find comments such as `# section 1 code to add here`
-helping you ensuring you are looking at the right place for the current exercise.
+helping you ensure that you are looking at the right place for the current exercise.
 
 The `lab` script can be used if you need to compare your changes with the solution.
 
