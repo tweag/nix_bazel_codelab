@@ -6,20 +6,11 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
-java_proto_library(
-    name = "logger_java_proto",
-    deps = [":logger_proto"]
-)
-
-java_grpc_library(
-    name = "logger_java_grpc",
-    srcs = [":logger_proto"],
-    deps = [":logger_java_proto"],
-)
-
 ts_proto_library(
     name = "logger_ts_proto",
     proto = ":logger_proto"
 )
 
 # section 2 code to add here
+
+# section 3 code ot add here
