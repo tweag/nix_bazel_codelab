@@ -103,7 +103,7 @@ helping you ensuring you are looking at the right place for the current exercise
 
 The `lab` script can be used if you need to compare your changes with the solution.
 
-Feel free to ask some help to the Bazel people on Slack if you have questions, or if you think something is wrong in the codelab.
+Feel free to ask the Bazel people for help on Slack if you have questions, or if you think something is wrong in the codelab.
 
 ## Section 1: Hello, Bazel!
 
