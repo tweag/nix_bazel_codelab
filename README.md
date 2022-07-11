@@ -59,8 +59,9 @@ Read up on Bazel [Concepts and Terminology][concepts].
 
 ## Running on NixOS
 
-If you're running NixOS you're going to have to apply [a patch][rules_proto_nixos_patch] to `rules_proto`,
-because they're currently using a prebuilt compiler, in which the linker is hardcoded to `/lib64/ld-linux-x86-64.so.2`.
+If your system is NixOS, uncomment the two lines in the `http_archive` named `rules_proto` in [WORKSPACE](WORKSPACE).
+
+**Explanations**: A [a patch][rules_proto_nixos_patch] on `rules_proto` is needed on NixOS because they're currently using a prebuilt compiler, in which the linker is hardcoded to `/lib64/ld-linux-x86-64.so.2`.
 The patch will instead force `rules_proto` to rebuild `protoc`, so we can link it properly.
 Note that this solution is not ideal: optimally we would be getting `protoc` from `nixpkgs` and hooking it into `rules_proto`.
 
