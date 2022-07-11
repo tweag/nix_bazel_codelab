@@ -94,6 +94,17 @@ nix-shell --run fish
 
 Use [`direnv`](https://direnv.net/) to automatically set up the environment when changing to this project's directory.
 
+## Getting started
+
+This project contains missing pieces that you will have to write, with some guidance, to make it compile again.
+
+In the files that require editing, you will find comments such as `# section 1 code to add here`
+helping you ensure that you are looking at the right place for the current exercise.
+
+The `lab` script can be used if you need to compare your changes with the solution.
+
+Feel free to ask the Bazel people for help on Slack if you have questions, or if you think something is wrong in the codelab.
+
 ## Section 1: Hello, Bazel!
 
 Build an example Java application that prints
