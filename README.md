@@ -244,7 +244,7 @@ Build a Java client which sends log messages to the server, in the format define
     - send messages from the Java client to the Go server
     - click the button on the web front end to see them in your web browser
 
-[ts_proto_library]: https://github.com/bazelbuild/rules_nodejs/tree/4.x/packages/labs/grpc_web
+[ts_proto_library]: https://github.com/bazelbuild/rules_nodejs/tree/4.4.6/packages/labs/grpc_web
 [ts_project]: https://www.npmjs.com/package/@bazel/typescript#user-content-typical-usage
 [concatjs]: https://www.npmjs.com/package/@bazel/concatjs#user-content-serving-js-in-development-mode-under-bazel
 
