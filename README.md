@@ -178,7 +178,7 @@ Build a Java client which sends log messages to the server, in the format define
         - name it `JavaLoggingClientLibrary`
         - use `JavaLoggingClientLibrary.java` as source
         - declare depencies on `*_proto` and `*_grpc` targets created in previous steps
-        - TODO: explain additional dependencies
+        - since `JavaLoggingClientLibrary` uses the `io.grpc` package, you will also need to declare a dependency on `@io_grpc_grpc_java//core`, as well as a transport impementation such as `@io_grpc_grpc_java//netty`.
     2. Add a Java binary for the client
         - use [`java_binary()`](https://docs.bazel.build/versions/4.2.1/be/java.html#java_binary)
         - name it `JavaLoggingClient`
