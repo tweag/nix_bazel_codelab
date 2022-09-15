@@ -255,9 +255,12 @@ Build a Java client which sends log messages to the server, in the format define
     - use [`sh_test`][sh_test]
     - add the Go server and Java client targets from previous steps as `data` dependencies
 1.  Run the test using `bazel test` and make sure that it passes
-1.  Run the test multiple times using `bazel test <target> --runs_per_test=10` and make sure that it passes
+1.  Run the test multiple times using `bazel test <target> --runs_per_test=10`
+    - Does it pass? If not, can you figure out why?
+    - Hint: the section on test run behaviour in the [`tags` documentation](tags_docs) may prove useful.
 
 [sh_test]: https://docs.bazel.build/versions/4.2.1/be/shell.html#sh_test
+[tags_docs]: https://docs.bazel.build/versions/4.2.1/be/common-definitions.html#common.tags
 
 ## Section 7: Query dependency graph
 
