@@ -13,12 +13,10 @@ It has been adapted to
 
 - Use more recent versions of the required Bazel rule sets.
 - Follow best practices such as formatting with [`buildifier`][buildifier] or using `BUILD.bazel` files instead of `BUILD` files.
-- Manage Go dependencies and targets using [Gazelle][gazelle].
 - Use [Nix][nix] to provide Bazel and other developer tools in a Nix shell.
 - Use [`rules_nixpkgs`][rules_nixpkgs] to import Nix provided toolchains from [`nixpkgs`][nixpkgs].
 
 [buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
-[gazelle]: https://github.com/bazelbuild/bazel-gazelle
 [nix]: https://nixos.org/
 [rules_nixpkgs]: https://github.com/tweag/rules_nixpkgs
 [nixpkgs]: https://github.com/NixOS/nixpkgs
@@ -104,14 +102,14 @@ helping you ensure that you are looking at the right place for the current exerc
 
 The `lab` script can be used if you need to compare your changes with the solution.
 
-Feel free to ask the Bazel people for help on Slack if you have questions, or if you think something is wrong in the codelab.
+Feel free to open an issue to ask questions, or if you think something is wrong in the codelab.
 
 ## Section 1: Hello, Bazel!
 
 Build an example Java application that prints
 
 ``` plain
-Hello, Bazel!
+Welcome to the Bootcamp! Let's get going :)
 ```
 
 to the console.
@@ -121,7 +119,8 @@ to the console.
     - use [`java_binary()`][java_binary]
     - name it `HelloBazelBootcamp`
 1.  Run the binary using `bazel run //java/src/main/java/bazel/bootcamp:HelloBazelBootcamp`
-
+    - WARNING: The first time you run this command, it may be quite long.
+      Bazel is downloading and installing all the dependencies required to build a Java project.
 [java_binary]: https://docs.bazel.build/versions/4.2.1/be/java.html#java_binary
 
 ## Section 2: Go server
@@ -140,33 +139,32 @@ Build a Go server that receives log messages in the format defined in `proto/log
                 - allows importing the library from a known package path in `server.go`
             - `compilers`
                 - setting to `["@io_bazel_rules_go//proto:go_grpc"]` builds functions implementing the `Logger` service for `gRPC`
-
-[proto_library]: https://docs.bazel.build/versions/4.2.1/be/protocol-buffer.html#proto_library
-[deprecated]: https://github.com/bazelbuild/rules_proto/issues/50#issuecomment-602578288
-[go_proto_library]: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#example-grpc
-
 1.  Edit `go/cmd/server/BUILD.bazel`
+    1. The [`go_library`][go_library] target `server_lib` is already written for you
     1. Add a binary target from `server.go`
         - use [`go_binary()`][go_binary]
         - name it `go-server`
+        - it depends of `server_lib`
         - add `//proto/logger:logger_go_proto` to `deps`
-        - TODO: show how to use [Gazelle][gazelle] to generate dependencies
-        - TODO: discuss separating `binary` and `library` for reuse
-            - maybe add another exercise
 1.  Run the go binary using `bazel run //go/cmd/server:go-server`
     - `run` implies the `build` step
 1.  Check [`http://localhost:8081`](http://localhost:8081)
     - it should display
       > "No log messages received yet."
 
+
+[proto_library]: https://docs.bazel.build/versions/4.2.1/be/protocol-buffer.html#proto_library
+[deprecated]: https://github.com/bazelbuild/rules_proto/issues/50#issuecomment-602578288
+[go_proto_library]: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#example-grpc
 [go_binary]: https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/rules.md#rules
+[go_library]: https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/rules.md#go_library
 
 ## Section 3: Java client
 
 Build a Java client which sends log messages to the server, in the format defined in `proto/logger/logger.proto`.
 
 1.  Edit `proto/logger/BUILD.bazel`
-    1. Add a Java library for data structurs in `logger.proto`
+    1. Add a Java library for data structures in `logger.proto`
         - use [`java_proto_library()`][java_proto_library]
         - name it `logger_java_proto`
     2. Add a Java library implementing the `gRPC` service `Logger` defined in `logger.proto`
@@ -214,12 +212,20 @@ Build a Java client which sends log messages to the server, in the format define
         - add `JavaLoggingClientLibrary` target from [Section 3](#section-3-java-client) as dependency
     2. Repeat the same for the client binary `JavaLoggingClient`
 1.  Run tests
-    - TODO: this is not a unit test, it depends on the server to make any sense (but passes without it, throwing an error message)! write a mock?
+    - NOTE: this is not a unit test, it depends on the server to make any sense.
+        - If you skipped section 2 exercise, you can simply run `lab install go/cmd/server/BUILD.bazel` to get the solution of this exercise and `bazel run //go/cmd/server:go-server` to run it.
     - start Go server in another `nix-shell`, as in [Section 2](#section-2-go-server)
     - run Java client tests
       ```
       bazel test //java/src/main/java/bazel/bootcamp:JavaLoggingClientLibraryTest
       ```
+        - NOTE: If you simply turn off the server and rerun the test,
+            you will most likely see that the test passed, with the information that it is "cached".
+            Indeed, Bazel does not rerun the tests if none of its dependencies changed.
+            If you really want to rerun it to acknowledge that it fails when the server is off,
+            you have to specify `--cache_test_results=no` in the command line.
+    - Do not forget to run the tests of `JavaLoggingClient`
+        - NOTE: Those tests do not use the server.
 
 ## Section 5: Typescript web frontend
 
@@ -234,12 +240,12 @@ Build a Java client which sends log messages to the server, in the format define
         - add `logger_ts_proto` as a dependency
     2. Add a target for a development server
         - use [`concatjs_devserver()`][concatjs]
-            - set `entry_module = "bootcamp/typescript/app"` to make it work correctly
         - name it `devserver`
         - add the `ts_library` target as dependency
+        - set `entry_module = "bootcamp/typescript/app"` to make it work correctly
 1.  Run the webserver using `bazel run //typescript:devserver`
     - it will print a link which you can click on
-    - if the link does not work, try [`http://localhost:5432`][http://localhost:5432]
+    - if the link does not work, try [`http://localhost:5432`](http://localhost:5432)
 1.  Run the Go server and Java client from the previous steps.
     - send messages from the Java client to the Go server
     - click the button on the web front end to see them in your web browser
@@ -254,18 +260,20 @@ Build a Java client which sends log messages to the server, in the format define
     - add a shell test target for `integrationtest.sh`
     - use [`sh_test`][sh_test]
     - add the Go server and Java client targets from previous steps as `data` dependencies
-1.  Run the test using `bazel test` and make sure that it passes
+1.  Run the test using `bazel test <target>` and make sure that it passes
+    - NOTE: You may have to modify your solution of Section 2 and 3 to make those tests pass.
+        Especially, you most likely did not set the [visibility] of the binaries.
 1.  Run the test multiple times using `bazel test <target> --runs_per_test=10`
-    - Does it pass? If not, can you figure out why?
-    - Hint: the section on test run behaviour in the [`tags` documentation][tags_docs] may prove useful.
+    - QUESTION: Does it pass? If not, can you figure out why?
+    - HINT: the section on test run behaviour in the [`tags` documentation][tags_docs] may prove useful.
 
 [sh_test]: https://docs.bazel.build/versions/4.2.1/be/shell.html#sh_test
 [tags_docs]: https://docs.bazel.build/versions/4.2.1/be/common-definitions.html#common.tags
+[visibility]: https://bazel.build/concepts/visibility
 
 ## Section 7: Query dependency graph
 
 1. Read the [Bazel Query How-To][query] and try the examples to display the dependency graph of the packages in this exercise.
+1. SOLUTION: This exercise is solved [here][(solutions/dependency_graph/README.md).
 
 [query]: https://docs.bazel.build/versions/4.2.1/query-how-to.html
-
-
