@@ -1,9 +1,13 @@
 load("@rules_java//java:defs.bzl", "java_binary", "java_library", "java_test")
 
+# section 1 code added here
+
 java_binary(
     name = "HelloBazelBootcamp",
     srcs = ["HelloBazelBootcamp.java"],
 )
+
+# section 3 code added here
 
 java_library(
     name = "JavaLoggingClientLibrary",
@@ -22,6 +26,8 @@ java_binary(
     deps = [":JavaLoggingClientLibrary"],
     visibility = ["//visibility:public"]
 )
+
+# section 4 code added here
 
 java_test(
     name = "JavaLoggingClientLibraryTest",

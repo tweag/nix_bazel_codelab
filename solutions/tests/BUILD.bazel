@@ -1,3 +1,5 @@
+# section 6 code added here
+
 sh_test(
     name = "integration_test",
     srcs = ["integrationtest.sh"],

@@ -1,11 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
-go_binary(
-    name = "go-server",
-    embed = [":server_lib"],
-    visibility = ["//visibility:public"],
-)
-
 go_library(
     name = "server_lib",
     srcs = ["server.go"],
@@ -17,4 +11,12 @@ go_library(
         "@org_golang_google_grpc//:go_default_library",
         "@org_golang_google_grpc//reflection",
     ],
+)
+
+# section 2 code added here
+
+go_binary(
+    name = "go-server",
+    embed = [":server_lib"],
+    visibility = ["//visibility:public"],
 )
