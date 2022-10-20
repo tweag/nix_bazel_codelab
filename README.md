@@ -273,7 +273,21 @@ Build a Java client which sends log messages to the server, in the format define
 [tags_docs]: https://docs.bazel.build/versions/4.2.1/be/common-definitions.html#common.tags
 [visibility]: https://bazel.build/concepts/visibility
 
-## Section 7: Query dependency graph
+## Section 7: Code formatting with buildifier
+
+1. Edit `BUILD.bazel`
+    1. Add a `load` instruction to import the rule [`buildifier`][buildifier].
+    1. Create a target called `buildifier-print` which warns about lint error and only prints the changes `buildifier` would make.
+        - NOTE: Doing such a rule will provide a warning that using `mode = "diff"` is deprecated,
+            and incitating to use a `buildifier_test` rule instead.
+            There is a [known issue][buildifier_test issue] preventing a `buildifier_test` to be run on every folders of a project, hence, for now, let's simply ignore this deprecation warning.
+    1. Create now a target called `buildifier-fix` which warns about lint error and only prints the changes `buildifier would make.
+    1. Run the 2 targets to format your solution to the exercises.
+
+[buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
+[buildifier_test issue]: https://github.com/bazelbuild/buildtools/issues/1075
+
+## Section 8: Query dependency graph
 
 1. Read the [Bazel Query How-To][query] and try the examples to display the dependency graph of the packages in this exercise.
 1. SOLUTION: This exercise is solved [here][(solutions/dependency_graph/README.md).

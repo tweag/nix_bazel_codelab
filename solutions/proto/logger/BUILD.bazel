@@ -10,21 +10,21 @@ package(default_visibility = ["//visibility:public"])
 
 proto_library(
     name = "logger_proto",
-    srcs = ["logger.proto"]
+    srcs = ["logger.proto"],
 )
 
 go_proto_library(
     name = "logger_go_proto",
-    proto = ":logger_proto",
     compilers = ["@io_bazel_rules_go//proto:go_grpc"],
-    importpath = "bootcamp/proto/logger"
+    importpath = "bootcamp/proto/logger",
+    proto = ":logger_proto",
 )
 
 # section 3 code added here
 
 java_proto_library(
     name = "logger_java_proto",
-    deps = [":logger_proto"]
+    deps = [":logger_proto"],
 )
 
 java_grpc_library(
@@ -37,5 +37,5 @@ java_grpc_library(
 
 ts_proto_library(
     name = "logger_ts_proto",
-    proto = ":logger_proto"
+    proto = ":logger_proto",
 )

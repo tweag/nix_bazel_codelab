@@ -7,5 +7,5 @@ sh_test(
         "//go/cmd/server:go-server",
         "//java/src/main/java/bazel/bootcamp:JavaLoggingClient",
     ],
-    tags = ["exclusive"]
+    tags = ["exclusive"],
 )
