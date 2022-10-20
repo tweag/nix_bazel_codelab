@@ -128,38 +128,19 @@ to the console.
 
 Build a Go server that receives log messages in the format defined in `proto/logger/logger.proto`.
 
-1.  Edit `proto/logger/BUILD.bazel`
-    1. Add a target for the protocol description
-        - use [`proto_library()`][proto_library]
-        - name it `logger_proto`
-        - ignore the deprecation warning in the documentation, [the API is still valid][deprecated]
-    1. Add a library target for a Go `protobuf` library based on `logger.proto`
-        - use [`go_proto_library()`][go_proto_library]
-            - name it `logger_go_proto`
-            - `importpath`
-                - allows importing the library from a known package path in `server.go`
-            - `compilers`
-                - setting to `["@io_bazel_rules_go//proto:go_grpc"]` builds functions implementing the `Logger` service for `gRPC`
-
-[proto_library]: https://docs.bazel.build/versions/4.2.1/be/protocol-buffer.html#proto_library
-[deprecated]: https://github.com/bazelbuild/rules_proto/issues/50#issuecomment-602578288
-[go_proto_library]: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#example-grpc
-
-1.  Edit `go/cmd/server/BUILD.bazel`
-    1. Add a binary target from `server.go`
-        - use [`go_binary()`][go_binary]
-        - name it `go-server`
-        - add `//proto/logger:logger_go_proto` to `deps`
-        - TODO: show how to use [Gazelle][gazelle] to generate dependencies
-        - TODO: discuss separating `binary` and `library` for reuse
-            - maybe add another exercise
-1.  Run the go binary using `bazel run //go/cmd/server:go-server`
+1.  Run `bazel run //:gazelle` to generate all the bazel target related to Go.
+    - NOTE: This command should have affected `proto/logger/BUILD.bazel` and `go/cmd/server/BUILD.bazel`.
+1.  Run the go binary using `bazel run //go/cmd/server:server`
     - `run` implies the `build` step
 1.  Check [`http://localhost:8081`](http://localhost:8081)
     - it should display
       > "No log messages received yet."
 
-[go_binary]: https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/rules.md#rules
+### About Gazelle
+[Gazelle][gazelle] is a program to generate Bazel build files from a Go project.
+It is highly extensible and features language extensions for all the languages used in this tutorial.
+However, we would not learn anything about Bazel if we did not write some targets manually.
+Hence, we will not use it anymore in this tutorial.
 
 ## Section 3: Java client
 

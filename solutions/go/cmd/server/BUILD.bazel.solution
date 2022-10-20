@@ -1,10 +1,6 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
-go_binary(
-    name = "go-server",
-    embed = [":server_lib"],
-    visibility = ["//visibility:public"],
-)
+# section 2 code was added here by Gazelle
 
 go_library(
     name = "server_lib",
@@ -12,9 +8,15 @@ go_library(
     importpath = "github.com/bazelbuild/codelabs/go/cmd/server",
     visibility = ["//visibility:private"],
     deps = [
-        "//proto/logger:logger_go_proto",
+        "//proto/logger",
         "@com_github_golang_protobuf//jsonpb:go_default_library_gen",
         "@org_golang_google_grpc//:go_default_library",
         "@org_golang_google_grpc//reflection",
     ],
+)
+
+go_binary(
+    name = "server",
+    embed = [":server_lib"],
+    visibility = ["//visibility:public"],
 )

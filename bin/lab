@@ -49,25 +49,26 @@ die() {
 
 # display a diff
 diffing() {
-    diff -u "solutions/$1" "$1"
+    diff -u "solutions/$1.solution" "$1"
 }
 
 # display the solution file
 show() {
-    cat "solutions/$1"
+    cat "solutions/$1.solution"
 }
 
 # overwrite the file with its solution
 copy() {
-    cp -f "solutions/$1" "$1"
+    cp -f "solutions/$1.solution" "$1"
 }
 
 # install all solutions
 copy_all() {
     test -d solutions || die "Can't find the solutions directory in $PWD"
     cd solutions || die "Can't cd into the solutions directory"
-    find . -type f -exec cp -f {} ../{} \; \
-        || die "An error occured while copying files"
+    find . -type f -print0 | while IFS= read -r -d $'\0' file;
+        do cp -f ${file} ../${file%.solution}
+    done || die "An error occured while copying files"
     echo "Solutions installed succesfully:"
     echo ""
     find . -type f
@@ -137,7 +138,7 @@ go_to_git_toplevel
 if [ -f "$FILE" ]
 then
     # check we have a solution for this file
-    if [ -f "solutions/$FILE" ]
+    if [ -f "solutions/$FILE.solution" ]
     then
         $FUNCTION "$FILE"
     else
