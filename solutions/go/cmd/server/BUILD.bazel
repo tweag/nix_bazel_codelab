@@ -18,6 +18,6 @@ go_library(
 go_binary(
     name = "go-server",
     embed = [":server_lib"],
-    deps = ["//proto/logger:logger_go_proto"],
     visibility = ["//visibility:public"],
+    deps = ["//proto/logger:logger_go_proto"],
 )
