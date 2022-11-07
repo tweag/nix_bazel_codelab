@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-readonly GO_SERVER="$(find "${TEST_SRCDIR}" -name server)"
+readonly GO_SERVER="$(find "${TEST_SRCDIR}" -type l -name "server")"
 readonly JAVA_CLIENT="$(find "${TEST_SRCDIR}" -name JavaLoggingClient)"
 
 "$GO_SERVER" &
