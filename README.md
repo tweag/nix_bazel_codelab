@@ -121,7 +121,7 @@ to the console.
     - use [`java_binary()`][java_binary]
     - name it `HelloBazelBootcamp`
 1.  Run the binary using `bazel run //java/src/main/java/bazel/bootcamp:HelloBazelBootcamp`
-    - WARNING: The first time you run this command, it may be quite long.
+    - WARNING: The first time you run this command, it may take quite a long time.
       Bazel is downloading and installing all the dependencies required to build a Java project.
 [java_binary]: https://docs.bazel.build/versions/4.2.1/be/java.html#java_binary
 
@@ -146,7 +146,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
     1. Add a binary target from `server.go`
         - use [`go_binary()`][go_binary]
         - name it `go-server`
-        - it depends of `server_lib`
+        - it depends on `server_lib`
         - add `//proto/logger:logger_go_proto` to `deps`
 1.  Run the go binary using `bazel run //go/cmd/server:go-server`
     - `run` implies the `build` step
@@ -256,7 +256,7 @@ Build a Java client which sends log messages to the server, in the format define
     - add the Go server and Java client targets from previous steps as `data` dependencies
 1.  Run the test using `bazel test <target>` and make sure that it passes
     - NOTE: You may have to modify your solution of Section 2 and 3 to make those tests pass.
-        Especially, you most likely did not set the [visibility] of the binaries.
+        In particular, you most likely did not set the [visibility] of the binaries.
 1.  Run the test multiple times using `bazel test <target> --runs_per_test=10`
     - QUESTION: Does it pass? If not, can you figure out why?
     - HINT: the section on test run behaviour in the [`tags` documentation][tags_docs] may prove useful.
