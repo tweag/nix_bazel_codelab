@@ -6,7 +6,7 @@ one has to write:
 bazel query "deps(//go/cmd/server:go-server)"
 ```
 
-And to list the dependencies of all the package in the current workspace, one writes:
+And to list the dependencies of all the packages in the current workspace, one writes:
 ```
 bazel query "deps(//...)"
 ```
