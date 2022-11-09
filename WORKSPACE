@@ -14,7 +14,7 @@ load("@io_tweag_rules_nixpkgs//nixpkgs:repositories.bzl", "rules_nixpkgs_depende
 
 rules_nixpkgs_dependencies()
 
-load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_local_repository", "nixpkgs_package")
+load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_cc_configure", "nixpkgs_java_configure", "nixpkgs_local_repository", "nixpkgs_package")
 
 nixpkgs_local_repository(
     name = "nixpkgs",
@@ -23,8 +23,6 @@ nixpkgs_local_repository(
 # END: Nix dependencies
 
 # BEGIN: Java dependencies
-load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_java_configure")
-
 nixpkgs_java_configure(
     attribute_path = "jdk11.home",
     repository = "@nixpkgs",
@@ -47,8 +45,6 @@ rules_java_toolchains()
 # END: Java dependencies
 
 # BEGIN: CC dependencies
-load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_cc_configure")
-
 nixpkgs_cc_configure(
     name = "nixpkgs_config_cc",
     repository = "@nixpkgs",
@@ -159,14 +155,12 @@ nixpkgs_package(
     repository = "@nixpkgs",
 )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
 
 node_repositories(
     package_json = ["//typescript:package.json"],
     vendored_node = "@nix_node",
 )
-
-load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 
 yarn_install(
     name = "npm",

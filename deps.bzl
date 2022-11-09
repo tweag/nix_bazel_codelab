@@ -1,6 +1,13 @@
+"""
+This module contains the go rules used by this codelab.
+"""
+
 load("@bazel_gazelle//:deps.bzl", "go_repository")
 
 def go_dependencies():
+    """
+    'go_dependencies' contains all the Go repositories loaded by the WORKSPACE.
+    """
     go_repository(
         name = "co_honnef_go_tools",
         build_file_proto_mode = "disable_global",
