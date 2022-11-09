@@ -22,6 +22,8 @@ gazelle(
     command = "update-repos",
 )
 
+# section 7 code added here
+
 buildifier(
     name = "buildifier-print",
     diff_command = "diff -u",
