@@ -15,4 +15,4 @@ jobs:
           nix_path: nixpkgs=channel:nixos-22.05
       - run: bin/lab install_all
       - run: nix-shell --pure --run "bazel test //tests:integration_test"
-      - run: nix-shell --pure --run "bazel run //:buildifier-test"
+      - run: nix-shell --pure --run "bazel run //:buildifier-print"
