@@ -278,9 +278,9 @@ Build a Java client which sends log messages to the server, in the format define
 1. Edit `BUILD.bazel`
     1. Add a `load` instruction to import the rule [`buildifier`][buildifier].
     1. Create a target called `buildifier-print` which warns about lint error and only prints the changes `buildifier` would make.
-        - NOTE: Doing such a rule will provide a warning that using `mode = "diff"` is deprecated,
-            and incitating to use a `buildifier_test` rule instead.
-            There is a [known issue][buildifier_test issue] preventing a `buildifier_test` to be run on every folders of a project, hence, for now, let's simply ignore this deprecation warning.
+        - NOTE: Adding such a rule will provide a warning that using `mode = "diff"` is deprecated,
+            and suggesting to use a `buildifier_test` rule instead.
+            There is a [known issue][buildifier_test issue] preventing a `buildifier_test` from being run on every folders of a project, hence, for now, let's simply ignore this deprecation warning.
     1. Create now a target called `buildifier-fix` which warns about lint error and only prints the changes `buildifier` would make.
     1. Run the 2 targets to format your solution to the exercises.
 
