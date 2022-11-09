@@ -23,7 +23,7 @@ gazelle(
 )
 
 buildifier(
-    name = "buildifier-test",
+    name = "buildifier-print",
     diff_command = "diff -u",
     lint_mode = "warn",
     mode = "diff",
