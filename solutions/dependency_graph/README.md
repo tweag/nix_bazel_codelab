@@ -21,9 +21,9 @@ This graph is very large and hard to visualise.
 
 We might prefer to only see the dependencies between the targets we wrote during this tutorial.
 To do so, rather than `deps`, we will use another kind of query `allpaths`.
-`allpaths` only displays the dependencies chain betweeen 2 packages.
+`allpaths` only displays the dependency chain betweeen 2 packages.
 
-For instance, to understand how our java client depends of the Java GRPC packages, one can run
+For instance, to understand how our java client depends on the Java GRPC packages, one can run
 ```
 bazel query "allpaths(//java/src/main/java/bazel/bootcamp:JavaLoggingClient, @io_grpc_grpc_java//...)" --output=graph
 ```
