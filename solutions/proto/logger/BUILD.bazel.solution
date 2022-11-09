@@ -7,6 +7,8 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
+# section 3 code added here
+
 java_proto_library(
     name = "logger_java_proto",
     deps = [":logger_proto"],
@@ -17,6 +19,8 @@ java_grpc_library(
     srcs = [":logger_proto"],
     deps = [":logger_java_proto"],
 )
+
+# section 5 code added here
 
 ts_proto_library(
     name = "logger_ts_proto",
