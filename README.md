@@ -214,12 +214,20 @@ Build a Java client which sends log messages to the server, in the format define
         - add `JavaLoggingClientLibrary` target from [Section 3](#section-3-java-client) as dependency
     2. Repeat the same for the client binary `JavaLoggingClient`
 1.  Run tests
-    - TODO: this is not a unit test, it depends on the server to make any sense (but passes without it, throwing an error message)! write a mock?
+    - NOTE: this is not a unit test, it depends on the server to make any sense.
+        - If you skipped section 2 exercise, you can simply run `lab install go/cmd/server/BUILD.bazel` to get the solution of this exercise and `bazel run //go/cmd/server:go-server` to run it.
     - start Go server in another `nix-shell`, as in [Section 2](#section-2-go-server)
     - run Java client tests
       ```
       bazel test //java/src/main/java/bazel/bootcamp:JavaLoggingClientLibraryTest
       ```
+        - NOTE: If you simply turn off the server and rerun the test,
+            you will most likely see that the test passed, with the information that it is "cached".
+            Indeed, Bazel does not rerun the tests if none of its dependencies changed.
+            If you really want to rerun it to acknowledge that it fails when the server is off,
+            you have to specify `--cache_test_results=no` in the command line.
+    - Do not forget to run the tests of `JavaLoggingClient`
+        - NOTE: Those tests do not use the server.
 
 ## Section 5: Typescript web frontend
 

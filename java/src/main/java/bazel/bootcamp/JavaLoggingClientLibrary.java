@@ -36,12 +36,7 @@ public class JavaLoggingClientLibrary {
   public void sendLogMessageToServer(String message) {
     logger.info("Trying to send message '" + message + "' to server...");
     LogMessage logMessage = LogMessage.newBuilder().setMessage(message).build();
-    try {
-      blockingStub.sendLogMessage(logMessage);
-    } catch (StatusRuntimeException e) {
-      logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
-      return;
-    }
+    blockingStub.sendLogMessage(logMessage);
   }
 
 }
