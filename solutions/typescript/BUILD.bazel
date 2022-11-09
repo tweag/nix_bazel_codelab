@@ -1,11 +1,9 @@
 load("@npm//@bazel/concatjs:index.bzl", "concatjs_devserver")
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
 
-concatjs_devserver(
-    name = "devserver",
-    entry_module = "bootcamp/typescript/app",
-    deps = [":app"],
-)
+exports_files(["tsconfig.json"])
+
+# section 5 code added here
 
 ts_library(
     name = "app",
@@ -15,4 +13,8 @@ ts_library(
     ],
 )
 
-exports_files(["tsconfig.json"])
+concatjs_devserver(
+    name = "devserver",
+    entry_module = "bootcamp/typescript/app",
+    deps = [":app"],
+)
