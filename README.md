@@ -13,12 +13,10 @@ It has been adapted to
 
 - Use more recent versions of the required Bazel rule sets.
 - Follow best practices such as formatting with [`buildifier`][buildifier] or using `BUILD.bazel` files instead of `BUILD` files.
-- Manage Go dependencies and targets using [Gazelle][gazelle].
 - Use [Nix][nix] to provide Bazel and other developer tools in a Nix shell.
 - Use [`rules_nixpkgs`][rules_nixpkgs] to import Nix provided toolchains from [`nixpkgs`][nixpkgs].
 
 [buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
-[gazelle]: https://github.com/bazelbuild/bazel-gazelle
 [nix]: https://nixos.org/
 [rules_nixpkgs]: https://github.com/tweag/rules_nixpkgs
 [nixpkgs]: https://github.com/NixOS/nixpkgs
