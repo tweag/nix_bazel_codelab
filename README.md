@@ -121,6 +121,7 @@ to the console.
 1.  Run the binary using `bazel run //java/src/main/java/bazel/bootcamp:HelloBazelBootcamp`
     - WARNING: The first time you run this command, it may take quite a long time.
       Bazel is downloading and installing all the dependencies required to build a Java project.
+
 [java_binary]: https://docs.bazel.build/versions/4.2.1/be/java.html#java_binary
 
 ## Section 2: Go server
