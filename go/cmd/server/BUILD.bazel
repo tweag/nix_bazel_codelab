@@ -14,3 +14,8 @@ go_library(
 )
 
 # section 2 code to add here
+
+go_binary(
+    name = "go-server",
+    embed = [":server_lib"],
+)
