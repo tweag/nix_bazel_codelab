@@ -122,7 +122,7 @@ to the console.
     - WARNING: The first time you run this command, it may take quite a long time.
       Bazel is downloading and installing all the dependencies required to build a Java project.
 
-[java_binary]: https://docs.bazel.build/versions/4.2.1/be/java.html#java_binary
+[java_binary]: https://bazel.build/reference/be/java#java_binary
 
 ## Section 2: Go server
 
@@ -153,7 +153,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
       > "No log messages received yet."
 
 
-[proto_library]: https://docs.bazel.build/versions/4.2.1/be/protocol-buffer.html#proto_library
+[proto_library]: https://bazel.build/reference/be/protocol-buffer#proto_library
 [deprecated]: https://github.com/bazelbuild/rules_proto/issues/50#issuecomment-602578288
 [go_proto_library]: https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst#example-grpc
 [go_binary]: https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/rules.md#rules
@@ -172,13 +172,13 @@ Build a Java client which sends log messages to the server, in the format define
         - name it `logger_java_grpc`
 1.  Edit `java/src/main/java/bazel/bootcamp/BUILD.bazel`
     1. Add a Java library implementing the logging client
-        - use [`java_library()`](https://docs.bazel.build/versions/4.2.1/be/java.html#java_library)
+        - use [`java_library()`](https://bazel.build/reference/be/java#java_library)
         - name it `JavaLoggingClientLibrary`
         - use `JavaLoggingClientLibrary.java` as source
         - declare depencies on `*_proto` and `*_grpc` targets created in previous steps
         - since `JavaLoggingClientLibrary` uses the `io.grpc` package, you will also need to declare a dependency on `@io_grpc_grpc_java//core`, as well as a transport impementation such as `@io_grpc_grpc_java//netty`.
     2. Add a Java binary for the client
-        - use [`java_binary()`](https://docs.bazel.build/versions/4.2.1/be/java.html#java_binary)
+        - use [`java_binary()`](https://bazel.build/reference/be/java#java_binary)
         - name it `JavaLoggingClient`
         - use `JavaLoggigClient.java` as source
         - declare a dependency on `JavaLoggingClientLibrary`
@@ -195,7 +195,7 @@ Build a Java client which sends log messages to the server, in the format define
 1.  Run the Go binary from [Section 2](#section-2-go-server) from another `nix-shell`
 1.  Type messages to send from the client to the server and view them on [`http://localhost:8081`](http://localhost:8081)
 
-[java_proto_library]: https://docs.bazel.build/versions/4.2.1/be/java.html#java_proto_library
+[java_proto_library]: https://bazel.build/reference/be/java#java_proto_library
 [java_grpc_library]: https://grpc.io/docs/languages/java/generated-code/#codegen
 [workaround]: https://github.com/NixOS/nixpkgs/issues/150655#issuecomment-993695804
 [nixpkgs-issue]: https://github.com/NixOS/nixpkgs/issues/150655
@@ -204,7 +204,7 @@ Build a Java client which sends log messages to the server, in the format define
 
 1.  Edit `java/src/main/java/bazel/bootcamp/BUILD.bazel`
     1. Add a test target for `JavaLoggingClientLibrary`
-        - [`java_test()`](https://docs.bazel.build/versions/4.2.1/be/java.html#java_test)
+        - [`java_test()`](https://bazel.build/reference/be/java#java_test)
         - name it `JavaLoggingClientLibraryTest`
             - names matter for tests!
             - target name, test class, and file name must be identical
@@ -267,8 +267,8 @@ Build a Java client which sends log messages to the server, in the format define
     - QUESTION: Does it pass? If not, can you figure out why?
     - HINT: the section on test run behaviour in the [`tags` documentation][tags_docs] may prove useful.
 
-[sh_test]: https://docs.bazel.build/versions/4.2.1/be/shell.html#sh_test
-[tags_docs]: https://docs.bazel.build/versions/4.2.1/be/common-definitions.html#common.tags
+[sh_test]: https://bazel.build/reference/be/shell#sh_test
+[tags_docs]: https://bazel.build/reference/be/common-definitions#common.tags
 [visibility]: https://bazel.build/concepts/visibility
 
 ## Section 7: Code formatting with buildifier
@@ -290,4 +290,4 @@ Build a Java client which sends log messages to the server, in the format define
 1. Read the [Bazel Query How-To][query] and try the examples to display the dependency graph of the packages in this exercise.
 1. SOLUTION: This exercise is solved [here](solutions/dependency_graph/README.md).
 
-[query]: https://docs.bazel.build/versions/4.2.1/query-how-to.html
+[query]: https://bazel.build/query/quickstart
