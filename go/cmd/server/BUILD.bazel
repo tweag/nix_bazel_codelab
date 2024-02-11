@@ -18,4 +18,5 @@ go_library(
 go_binary(
     name = "go-server",
     embed = [":server_lib"],
+    visibility = ["//tests:__subpackages__"],
 )
