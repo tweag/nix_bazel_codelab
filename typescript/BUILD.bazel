@@ -13,6 +13,6 @@ ts_library(
 
 concatjs_devserver(
     name = "devserver",
-    deps = [":app"],
     entry_module = "bootcamp/typescript/app",
+    deps = [":app"],
 )

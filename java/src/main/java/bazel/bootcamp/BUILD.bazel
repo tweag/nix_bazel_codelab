@@ -12,8 +12,8 @@ java_library(
     name = "JavaLoggingClientLibrary",
     srcs = ["JavaLoggingClientLibrary.java"],
     deps = [
-        "//proto/logger:logger_java_proto",
         "//proto/logger:logger_java_grpc",
+        "//proto/logger:logger_java_proto",
         "@io_grpc_grpc_java//core",
         "@io_grpc_grpc_java//netty",
     ],
@@ -22,8 +22,8 @@ java_library(
 java_binary(
     name = "JavaLoggingClient",
     srcs = ["JavaLoggingClient.java"],
-    deps = [":JavaLoggingClientLibrary"],
     visibility = ["//tests:__subpackages__"],
+    deps = [":JavaLoggingClientLibrary"],
 )
 
 # section 4 code to add here

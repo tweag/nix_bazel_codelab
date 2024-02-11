@@ -11,13 +11,13 @@ alias(
 
 buildifier(
     name = "buildifier-print",
-    mode = "diff",
-    lint_mode = "warn",
     diff_command = "diff -u",
+    lint_mode = "warn",
+    mode = "diff",
 )
 
 buildifier(
     name = "buildifier-fix",
-    mode = "fix",
     lint_mode = "fix",
+    mode = "fix",
 )
