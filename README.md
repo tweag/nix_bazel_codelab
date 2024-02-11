@@ -180,7 +180,7 @@ Build a Java client which sends log messages to the server, in the format define
     2. Add a Java binary for the client
         - use [`java_binary()`](https://bazel.build/reference/be/java#java_binary)
         - name it `JavaLoggingClient`
-        - use `JavaLoggigClient.java` as source
+        - use `JavaLoggingClient.java` as source
         - declare a dependency on `JavaLoggingClientLibrary`
 1.  Run the Java binary with
     ```
