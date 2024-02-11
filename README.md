@@ -145,8 +145,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
     1. Add a binary target from `server.go`
         - use [`go_binary()`][go_binary]
         - name it `go-server`
-        - it depends on `server_lib`
-        - add `//proto/logger:logger_go_proto` to `deps`
+        - it should be compiled together with the sources of `server_lib`
 1.  Run the go binary using `bazel run //go/cmd/server:go-server`
     - `run` implies the `build` step
 1.  Check [`http://localhost:8081`](http://localhost:8081)
