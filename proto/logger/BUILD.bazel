@@ -34,3 +34,8 @@ java_grpc_library(
 )
 
 # section 5 code to add here
+
+ts_proto_library(
+  name = "logger_ts_proto",
+  proto = ":logger_proto",
+)
