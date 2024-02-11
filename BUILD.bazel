@@ -1,3 +1,5 @@
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+
 package(default_visibility = ["//visibility:public"])
 
 alias(
@@ -6,3 +8,16 @@ alias(
 )
 
 # section 7 code to add here
+
+buildifier(
+    name = "buildifier-print",
+    mode = "diff",
+    lint_mode = "warn",
+    diff_command = "diff -u",
+)
+
+buildifier(
+    name = "buildifier-fix",
+    mode = "fix",
+    lint_mode = "fix",
+)
