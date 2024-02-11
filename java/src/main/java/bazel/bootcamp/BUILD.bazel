@@ -1,6 +1,10 @@
 load("@rules_java//java:defs.bzl", "java_binary", "java_library", "java_test")
 
 # section 1 code to add here
+java_binary(
+    name = "HelloBazelBootcamp",
+    srcs = ["HelloBazelBootcamp.java"],
+)
 
 # section 3 code to add here
 
