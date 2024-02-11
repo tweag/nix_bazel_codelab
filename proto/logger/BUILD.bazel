@@ -22,4 +22,15 @@ go_proto_library(
 
 # section 3 code to add here
 
+java_proto_library(
+    name = "logger_java_proto",
+    deps = [":logger_proto"],
+)
+
+java_grpc_library(
+    name = "logger_java_grpc",
+    srcs = [":logger_proto"],
+    deps = [":logger_java_proto"],
+)
+
 # section 5 code to add here
