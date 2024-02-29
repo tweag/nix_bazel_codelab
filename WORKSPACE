@@ -169,7 +169,7 @@ yarn_install(
     yarn_lock = "//typescript:yarn.lock",
 )
 
-load("@npm//@bazel/labs:package.bzl", "npm_bazel_labs_dependencies")
+load("//:npm_bazel_labs.bzl", "npm_bazel_labs_dependencies")
 
 npm_bazel_labs_dependencies()
 
