@@ -1,11 +1,11 @@
 { system ? builtins.currentSystem, ... }:
 
 import (builtins.fetchTarball {
-  name = "nixos-21.11-2021-12-04";
+  name = "nixos-23.11-2024-03-17";
   # URL obtained from https://status.nixos.org/
-  url = "https://github.com/NixOS/nixpkgs/archive/e34c5379866833f41e2a36f309912fa675d687c7.tar.gz";
+  url = "https://github.com/NixOS/nixpkgs/archive/614b4613980a522ba49f0d194531beddbb7220d3.tar.gz";
   # Hash obtained using `nix-prefetch-url --unpack <url>`
-  sha256 = "15shzr1wmc5770kblvlfwq5dsdlmvkpc3rhkn40nyi00fidqq96v";
+  sha256 = "1kipdjdjcd1brm5a9lzlhffrgyid0byaqwfnpzlmw3q825z7nj6w";
 }) {
   inherit system;
   overlays = [];
