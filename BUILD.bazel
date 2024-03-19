@@ -1,8 +1,0 @@
-package(default_visibility = ["//visibility:public"])
-
-alias(
-    name = "tsconfig.json",
-    actual = "//typescript:tsconfig.json",
-)
-
-# section 7 code to add here

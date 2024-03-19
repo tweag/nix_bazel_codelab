@@ -1,6 +1,0 @@
-load("@npm//@bazel/concatjs:index.bzl", "concatjs_devserver")
-load("@npm//@bazel/typescript:index.bzl", "ts_library")
-
-exports_files(["tsconfig.json"])
-
-# section 5 code to add here
