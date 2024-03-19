@@ -1,4 +1,4 @@
 bazel-*
 node_modules/
-user.bazelrc
+.bazelrc.local
 /.direnv
