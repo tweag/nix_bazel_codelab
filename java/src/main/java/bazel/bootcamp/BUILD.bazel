@@ -1,0 +1,4 @@
+java_binary(
+    name = "HelloBazelBootcamp",
+    srcs = ["HelloBazelBootcamp.java"],
+)

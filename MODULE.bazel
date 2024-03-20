@@ -1,0 +1,36 @@
+bazel_dep( # https://bazel.build/external/overview#bzlmod
+    name = "rules_nixpkgs_core",
+    version = "0.10.0",
+)
+
+bazel_dep(
+    name = "rules_nixpkgs_java",
+    version = "0.10.0",
+)
+
+bazel_dep(
+    name = "rules_java",
+    version = "7.5.0"
+)
+
+# https://bazel.build/external/extension#extension_usage
+nix_repo = use_extension("@rules_nixpkgs_core//extensions:repository.bzl", "nix_repo")
+nix_repo.file( # https://github.com/tweag/rules_nixpkgs/blob/master/core/extensions/repository.bzl#L270
+    name = "nixpkgs",
+    file = "//nix/nixpkgs:default.nix",
+)
+use_repo(nix_repo, "nixpkgs")
+
+non_module_dependencies = use_extension("//:non_module_dependencies.bzl", "non_module_dependencies")
+use_repo(non_module_dependencies, "nixpkgs_java_runtime_toolchain")
+
+register_toolchains("@nixpkgs_java_runtime_toolchain//:toolchain_definition")
+register_toolchains("@nixpkgs_java_runtime_toolchain//:runtime_toolchain_definition")
+register_toolchains("@nixpkgs_java_runtime_toolchain//:bootstrap_runtime_toolchain_definition")
+
+archive_override(
+    module_name = "rules_nixpkgs_java",
+    urls = "https://github.com/tweag/rules_nixpkgs/archive/refs/heads/philipp/java_bootstrap_runtime_toolchain.tar.gz",
+    integrity = "sha256-ttc2MXqfOlPNNC0mmndu58/WYtLaRrio1BmA3UUrvzQ=",
+    strip_prefix = "rules_nixpkgs-philipp-java_bootstrap_runtime_toolchain/toolchains/java",
+)
