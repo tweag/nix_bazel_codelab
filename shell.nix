@@ -7,5 +7,5 @@ with pkgs;
 
 mkShell {
   packages = [ bazel_7 bazel-buildtools nix ];
-  JAVA_HOME = lib.makeLibraryPath [ openjdk11 ] + "/openjdk";
+  JAVA_HOME = lib.makeLibraryPath [ openjdk19 ] + "/openjdk";
 }
