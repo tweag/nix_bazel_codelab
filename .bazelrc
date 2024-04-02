@@ -1,3 +1,5 @@
+startup --server_javabase=/nix/store/ksxp6l73r6m48p1mgf43rcr6agp4yci9-openjdk-headless-17.0.7+7
+
 build --incompatible_strict_action_env
 
 build --host_platform=@rules_nixpkgs_core//platforms:host
