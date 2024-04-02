@@ -1,12 +1,10 @@
-startup --server_javabase=/nix/store/ksxp6l73r6m48p1mgf43rcr6agp4yci9-openjdk-headless-17.0.7+7
+startup --server_javabase=/nix/store/ksxp6l73r6m48p1mgf43rcr6agp4yci9-openjdk-headless-17.0.7+7/lib/openjdk
 
 build --incompatible_strict_action_env
 
 build --host_platform=@rules_nixpkgs_core//platforms:host
 
-build --java_runtime_version=nixpkgs_java_19
-build --tool_java_runtime_version=nixpkgs_java_19
-build --java_language_version=19
-build --tool_java_language_version=19
+build --java_runtime_version=nixpkgs_java_17
+build --tool_java_runtime_version=nixpkgs_java_17
 
 try-import %workspace%/.bazelrc.local
