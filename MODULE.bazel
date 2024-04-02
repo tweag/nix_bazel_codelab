@@ -1,11 +1,11 @@
 bazel_dep( # https://bazel.build/external/overview#bzlmod
     name = "rules_nixpkgs_core",
-    version = "0.10.0",
+    version = "0.11.1",
 )
 
 bazel_dep(
     name = "rules_nixpkgs_java",
-    version = "0.10.0",
+    version = "0.11.1",
 )
 
 bazel_dep(
@@ -34,6 +34,6 @@ register_toolchains("@nixpkgs_java_runtime_toolchain//:all")
 archive_override(
     module_name = "rules_nixpkgs_java",
     urls = "https://github.com/tweag/rules_nixpkgs/archive/refs/heads/philipp/java_bootstrap_runtime_toolchain.tar.gz",
-    integrity = "sha256-v7ctsRTF1wY+MPW9XUQ8fZTZd73wVku6XL2sBXwZbKk=",
+    integrity = "sha256-HrpozwZ7mXG+N88zDdEKYR//CO+holnEeoo3TJ2F35U=",
     strip_prefix = "rules_nixpkgs-philipp-java_bootstrap_runtime_toolchain/toolchains/java",
 )
