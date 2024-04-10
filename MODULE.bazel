@@ -3,6 +3,8 @@ bazel_dep( # https://bazel.build/external/overview#bzlmod
     version = "0.11.1",
 )
 
+# java
+
 bazel_dep(
     name = "rules_nixpkgs_java",
     version = "0.11.1",
@@ -36,4 +38,23 @@ archive_override(
     urls = "https://github.com/tweag/rules_nixpkgs/archive/refs/heads/philipp/java_bootstrap_runtime_toolchain.tar.gz",
     integrity = "sha256-mnR2eYeH5fToWKgaVGzOpKIe9A1VD0uYHgjRVllevlc=",
     strip_prefix = "rules_nixpkgs-philipp-java_bootstrap_runtime_toolchain/toolchains/java",
+)
+
+# proto
+
+bazel_dep(
+    name = "rules_proto",
+    version = "6.0.0-rc2",
+)
+
+# go
+
+bazel_dep(
+    name = "rules_go",
+    version = "0.46.0",
+)
+
+bazel_dep(
+    name = "gazelle",
+    version = "0.36.0",
 )
