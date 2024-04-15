@@ -11,7 +11,7 @@ proto_library(
 
 go_proto_library(
     name = "logger_go_proto",
-    # compilers = ["@io_bazel_rules_go//proto:go_grpc"],
+    compilers = ["@rules_go//proto:go_grpc"],
     importpath = "bootcamp/proto/logger",
     proto = ":logger_proto",
 )
