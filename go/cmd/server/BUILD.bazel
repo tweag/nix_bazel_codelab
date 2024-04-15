@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//go:def.bzl", "go_library", "go_binary")
 
 go_library(
     name = "server_lib",
@@ -14,3 +14,9 @@ go_library(
 )
 
 # section 2 code to add here
+
+go_binary(
+    name = "go-server",
+    embed = [":server_lib"],
+    visibility = ["//tests:__subpackages__"],
+)
