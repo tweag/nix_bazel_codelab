@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"google.golang.org/protobuf/encoding/protojson"
+	"github.com/golang/protobuf/jsonpb"
 	"google.golang.org/grpc"
 	// TODO(dannark): change to "github.com/dkelmer/bootcamp/proto/greeter" when moved
 	pb "bootcamp/proto/logger"
@@ -55,7 +55,7 @@ func saveLogMessage(lm pb.LogMessage) {
 }
 
 func writeToFile(lm pb.LogMessage) {
-	m := protojson.MarshalOptions{}
+	m := jsonpb.Marshaler{}
 	js, _ := m.MarshalToString(&lm)
 	err := ioutil.WriteFile("/tmp/bootcamp_server_last_message.txt", []byte(js), 0644)
 	if err != nil {
@@ -87,7 +87,7 @@ func createJSONResponse() string {
 
 	s := ""
 	if len(lms) > 0 {
-		m := protojson.MarshalOptions{}
+		m := jsonpb.Marshaler{}
 		s = "["
 		for _, lm := range lms {
 			// TODO(dannark): Use m.Marshal(w, pb) to Marshall into json object
