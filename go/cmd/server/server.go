@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"google.golang.org/protobuf"
+	"github.com/golang/protobuf/jsonpb"
 	"google.golang.org/grpc"
 	// TODO(dannark): change to "github.com/dkelmer/bootcamp/proto/greeter" when moved
 	pb "bootcamp/proto/logger"
