@@ -6,5 +6,5 @@ in
 with pkgs;
 
 mkShell {
-  packages = [ bazel_7 bazel-buildtools nix ];
+  packages = [ bazel_7 bazel-buildtools nix go ];
 }
