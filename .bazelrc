@@ -8,4 +8,6 @@ build --tool_java_language_version=19
 
 build --extra_toolchains=@nixpkgs_java_runtime_toolchain//:all # necessary on nixos only
 
+common --@aspect_rules_ts//ts:skipLibCheck=always # passes an argument `--skipLibCheck` to *every* spawn of tsc
+
 try-import %workspace%/.bazelrc.local
