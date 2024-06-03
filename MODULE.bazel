@@ -33,9 +33,11 @@ bazel_dep(
 
 register_toolchains("@nixpkgs_java_runtime_toolchain//:all")
 
-local_path_override(
+archive_override(
     module_name = "rules_nixpkgs_java",
-    path = "../rules_nixpkgs/toolchains/java",
+    urls = "https://github.com/tweag/rules_nixpkgs/archive/927a31fdee00792e4b662c318aef7e52cb2b5580.tar.gz",
+    integrity = "sha256-JIsQDLkgOX7u0R87PAbMNATKwU4AsJwC/q4KQkBO34s=",
+    strip_prefix = "rules_nixpkgs-927a31fdee00792e4b662c318aef7e52cb2b5580/toolchains/java",
 )
 
 # proto
@@ -72,7 +74,9 @@ use_repo(
     "org_golang_google_grpc",
 )
 
-local_path_override(
+archive_override(
     module_name = "rules_nixpkgs_go",
-    path = "../rules_nixpkgs/toolchains/go",
+    urls = "https://github.com/tweag/rules_nixpkgs/archive/927a31fdee00792e4b662c318aef7e52cb2b5580.tar.gz",
+    integrity = "sha256-JIsQDLkgOX7u0R87PAbMNATKwU4AsJwC/q4KQkBO34s=",
+    strip_prefix = "rules_nixpkgs-927a31fdee00792e4b662c318aef7e52cb2b5580/toolchains/go",
 )
