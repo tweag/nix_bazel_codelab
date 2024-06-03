@@ -80,3 +80,10 @@ archive_override(
     integrity = "sha256-JIsQDLkgOX7u0R87PAbMNATKwU4AsJwC/q4KQkBO34s=",
     strip_prefix = "rules_nixpkgs-927a31fdee00792e4b662c318aef7e52cb2b5580/toolchains/go",
 )
+
+# typescript
+
+bazel_dep(
+    name = "rules_nodejs",
+    version = "5.8.3",
+)

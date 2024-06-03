@@ -1,7 +1,7 @@
 import {LogMessage} from '../proto/logger/logger_pb'
 
 class ServerLogs {
-  getServerLogs(): Promise<Array<LogMessage>> {
+  getServerLogs() {
     return fetch('http://localhost:8081')
         .then((response) => this.checkStatus(response))
         .then(
@@ -12,7 +12,7 @@ class ServerLogs {
                               .catch((error) => this.throwError(error)));
   }
 
-  private checkStatus(response: Response): Promise<Response> {
+  private checkStatus(response) {
     console.log('in check status');
     if (response.status >= 200 && response.status < 300) {
       return Promise.resolve(response);
@@ -22,12 +22,12 @@ class ServerLogs {
     }
   }
 
-  private parseJSON(response: Response): Promise<Response> {
+  private parseJSON(response) {
     console.log('in parse json');
     return response.json();
   }
 
-  private timestampToString(timestamp): String {
+  private timestampToString(timestamp) {
     // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
     var date = new Date(timestamp*1000);
     var hours = date.getHours();
@@ -37,7 +37,7 @@ class ServerLogs {
     return formattedTime;
   }
 
-  private displayServerLogs(data: Response) {
+  private displayServerLogs(data) {
     console.log('in display');
 
     const el: HTMLElement = document.getElementById('log_results');
@@ -62,7 +62,7 @@ class ServerLogs {
   }
 
   private throwError(error) {
-    const el: HTMLElement = document.getElementById('log_results');
+    const el = document.getElementById('log_results');
     el.innerHTML = 'No logs found, sorry. Try again once the server has logs?';
     console.log(error);
     return Promise.reject(error);

@@ -1,0 +1,25 @@
+load("@rules_nodejs//:index.bzl", "nodejs_binary")
+
+nodejs_binary(
+    name = "app",
+    entry_point = "test.js",
+)
+
+# load("@npm//@bazel/concatjs:index.bzl", "concatjs_devserver")
+# load("@npm//@bazel/typescript:index.bzl", "ts_library")
+
+# exports_files(["tsconfig.json"])
+
+# # section 5 code to add here
+
+# ts_library(
+#     name = "app",
+#     srcs = ["app.ts"],
+#     deps = ["//proto/logger:logger_ts_proto"],                                                                                                                                                          
+# )                                                                                                                                                                                                       
+                                                                                                                                                                                                        
+# concatjs_devserver(                                                                                                                                                                                     
+#     name = "devserver",                                                                                                                                                                                 
+#     entry_module = "bootcamp/typescript/app",                                                                                                                                                           
+#     deps = [":app"],                                                                                                                                                                                    
+# )                                                                                                                                                                                                       
