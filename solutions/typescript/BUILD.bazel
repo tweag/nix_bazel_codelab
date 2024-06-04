@@ -1,20 +1,45 @@
-load("@npm//@bazel/concatjs:index.bzl", "concatjs_devserver")
-load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
+load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//:http-server/package_json.bzl", http_server_bin = "bin")
 
-exports_files(["tsconfig.json"])
+npm_link_all_packages(name = "node_modules")
+
+http_server_bin.http_server_binary(
+    name = "http_server",
+)
 
 # section 5 code added here
 
-ts_library(
+ts_project(
     name = "app",
-    srcs = ["app.ts"],
+    srcs = [
+        "app.ts",
+    ],
+    extends = "tsconfig.json",
+    transpiler = "tsc",
+    tsconfig = {
+        "extends": "tsconfig.json",
+    },
     deps = [
         "//proto/logger:logger_ts_proto",
     ],
 )
 
-concatjs_devserver(
+esbuild(
+    name = "bundle",
+    entry_point = "app.js",
+)
+
+js_run_devserver(
     name = "devserver",
-    entry_module = "bootcamp/typescript/app",
-    deps = [":app"],
+    args = ["typescript/"],
+    data = [
+        "app.js",
+        "bundle.js",
+        "bundle.js.map",
+        "index.html",
+    ],
+    tool = ":http_server",
 )

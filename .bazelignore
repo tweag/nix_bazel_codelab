@@ -1,1 +1,4 @@
 solutions
+node_modules
+proto/logger/node_modules
+typescript/node_modules

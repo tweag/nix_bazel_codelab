@@ -19,7 +19,7 @@ nix_repo.file(
 use_repo(nix_repo, "nixpkgs")
 
 non_module_dependencies = use_extension("//:non_module_dependencies.bzl", "non_module_dependencies")
-use_repo(non_module_dependencies, "go_sdk_toolchains", "nixpkgs_java_runtime_toolchain")
+use_repo(non_module_dependencies, "go_sdk_toolchains", "nixpkgs_java_runtime_toolchain", "nixpkgs_nodejs_toolchain")
 
 # java
 
@@ -94,6 +94,72 @@ bazel_dep(
 # typescript
 
 bazel_dep(
+    name = "rules_nixpkgs_nodejs",
+    version = "0.11.1",
+)
+bazel_dep(
+    name = "aspect_rules_js",
+    version = "1.42.3",
+)
+bazel_dep(
+    name = "aspect_rules_ts",
+    version = "2.4.2",
+)
+bazel_dep(
+    name = "aspect_rules_esbuild",
+    version = "0.20.1",
+)
+bazel_dep(
     name = "rules_nodejs",
-    version = "5.8.3",
+    version = "6.0.5",
+)
+
+rules_ts_ext = use_extension(
+    "@aspect_rules_ts//ts:extensions.bzl",
+    "ext",
+    dev_dependency = True,
+)
+rules_ts_ext.deps()
+use_repo(rules_ts_ext, "npm_typescript")
+
+register_toolchains("@nixpkgs_nodejs_toolchain//:all")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
+npm.npm_translate_lock(
+    name = "npm",
+    bins = {
+        # derived from "bin" attribute in node_modules/http-server/package.json
+        "http-server": [
+            "http-server=./bin/http-server",
+        ],
+    },
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+use_repo(npm, "npm")
+
+archive_override(
+    module_name = "rules_nixpkgs_nodejs",
+    integrity = "sha256-JIsQDLkgOX7u0R87PAbMNATKwU4AsJwC/q4KQkBO34s=",
+    strip_prefix = "rules_nixpkgs-927a31fdee00792e4b662c318aef7e52cb2b5580/toolchains/nodejs",
+    urls = "https://github.com/tweag/rules_nixpkgs/archive/927a31fdee00792e4b662c318aef7e52cb2b5580.tar.gz",
+)
+
+# short term workaround for https://github.com/aspect-build/rules_ts/pull/620
+# (See also: https://github.com/NixOS/nixpkgs/issues/289505)
+archive_override(
+    module_name = "aspect_rules_ts",
+    integrity = "sha256-LUJ/OuYKTPN6/ys6qt30kXZ48drHbbA46FfjV74FyvI=",
+    strip_prefix = "rules_ts-8b00df0f559c2e4d75221e01ca76b0c41ce8aa7b",
+    urls = "https://github.com/aspect-build/rules_ts/archive/8b00df0f559c2e4d75221e01ca76b0c41ce8aa7b.tar.gz",
+)
+
+# short term workaround for https://github.com/aspect-build/rules_esbuild/pull/215
+# (See also: https://github.com/NixOS/nixpkgs/issues/289505)
+archive_override(
+    module_name = "aspect_rules_esbuild",
+    integrity = "sha256-2skHEQGvRBB6x/ohwRy5jk0+Y0wbLLgZ9Z0SlY8ZKso=",
+    strip_prefix = "rules_esbuild-e569104846dd35e3f93247ec01dac184e5ea972a",
+    urls = "https://github.com/aspect-build/rules_esbuild/archive/e569104846dd35e3f93247ec01dac184e5ea972a.tar.gz",
 )

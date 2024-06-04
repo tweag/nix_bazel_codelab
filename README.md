@@ -219,14 +219,20 @@ Build a Java client which sends log messages to the server, in the format define
         - name it `logger_ts_proto`
 1.  Edit `typescript/BUILD.bazel`
     1. Add a target for the TypeScript app `app.ts`
-        - use [`ts_library()`][ts_project]
-            - NOTE: the same interface applies as for `ts_project()`
+        - use [`ts_project()`][ts_project]
         - add `logger_ts_proto` as a dependency
+        - set `transpiler = "tsc"`
+        - you need to reference the local tsconfig.json
+    2. Bundle the JavaScript modules using esbuild
+        - use [esbuild()][esbuild]
+        - name it `bundle`
+        - set a valid entrypoint (ts_project generates a file with the ending `.js`)
     2. Add a target for a development server
-        - use [`concatjs_devserver()`][concatjs]
+        - use [`js_run_devserver()`][js_run_devserver]
         - name it `devserver`
-        - add the `ts_library` target as dependency
-        - set `entry_module = "bootcamp/typescript/app"` to make it work correctly
+        - add the `esbuild` target and `index.html` as `data` dependencies
+        - set `args = ["typescript"]` to serve files from the `typescript` directory
+        - set `tool = ":http_server"` to make it work correctly
 1.  Run the webserver using `bazel run //typescript:devserver`
     - it will print a link which you can click on
     - if the link does not work, try [`http://localhost:5432`](http://localhost:5432)
@@ -234,9 +240,10 @@ Build a Java client which sends log messages to the server, in the format define
     - send messages from the Java client to the Go server
     - click the button on the web front end to see them in your web browser
 
-[ts_proto_library]: https://github.com/bazelbuild/rules_nodejs/tree/4.4.6/packages/labs/grpc_web
+[ts_proto_library]: https://docs.aspect.build/rulesets/aspect_rules_ts/docs/proto/#ts_proto_library
 [ts_project]: https://www.npmjs.com/package/@bazel/typescript#user-content-typical-usage
-[concatjs]: https://www.npmjs.com/package/@bazel/concatjs#user-content-serving-js-in-development-mode-under-bazel
+[esbuild]: https://docs.aspect.build/rulesets/aspect_rules_esbuild/docs/rules
+[js_run_devserver]: https://docs.aspect.build/rulesets/aspect_rules_js/docs/js_run_devserver/
 
 ## Section 6: Integration test
 

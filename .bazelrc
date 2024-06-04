@@ -11,4 +11,6 @@ common --jvmopt=-Djava.security.manager=allow
 
 build --extra_toolchains=@nixpkgs_java_runtime_toolchain//:all # necessary on nixos only
 
+common --@aspect_rules_ts//ts:skipLibCheck=honor_tsconfig
+
 try-import %workspace%/user.bazelrc
