@@ -123,7 +123,7 @@ Build a Go server that receives log messages in the format defined in `proto/log
             - `importpath`
                 - allows importing the library from a known package path in `server.go`
             - `compilers`
-                - setting to `["@io_bazel_rules_go//proto:go_grpc"]` builds functions implementing the `Logger` service for `gRPC`
+                - setting to `["@rules_go//proto:go_grpc"]` builds functions implementing the `Logger` service for `gRPC`
 1.  Edit `go/cmd/server/BUILD.bazel`
     1. The [`go_library`][go_library] target `server_lib` is already written for you
     1. Add a binary target from `server.go`

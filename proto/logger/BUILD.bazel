@@ -1,6 +1,6 @@
-load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
 load("@npm//@bazel/labs:index.bzl", "ts_proto_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 
