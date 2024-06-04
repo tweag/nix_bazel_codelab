@@ -15,8 +15,8 @@ java_library(
     deps = [
         "//proto/logger:logger_java_grpc",
         "//proto/logger:logger_java_proto",
-        "@io_grpc_grpc_java//core",
-        "@io_grpc_grpc_java//netty",
+        "@grpc-java//core",
+        "@grpc-java//netty",
     ],
 )
 

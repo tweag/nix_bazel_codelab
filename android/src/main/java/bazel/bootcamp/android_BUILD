@@ -13,9 +13,9 @@ android_library(
         "//proto/logger:logger_java_grpc_lite",
         "//proto/logger:logger_java_proto_lite",
         gmaven_artifact("com.android.support:appcompat-v7:aar:25.0.0"),
-        "@io_grpc_grpc_java//core",
-        "@io_grpc_grpc_java//netty",
-        "@io_grpc_grpc_java//stub",
+        "@grpc-java//core",
+        "@grpc-java//netty",
+        "@grpc-java//stub",
     ],
 )
 
