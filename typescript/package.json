@@ -1,14 +1,10 @@
 {
   "name": "typescript",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
   "license": "MIT",
-  "devDependencies": {
-    "@bazel/concatjs": "^4.4.6",
-    "@bazel/hide-bazel-files": "latest",
-    "@bazel/labs": "^4.6.1",
-    "@bazel/typescript": "4.4.6",
-    "protobufjs": "5.0.3",
-    "typescript": "^3.3.1"
+  "dependencies": {
+    "@bufbuild/buf": "1.32.2",
+    "@bufbuild/protobuf": "1.10.0"
   }
 }

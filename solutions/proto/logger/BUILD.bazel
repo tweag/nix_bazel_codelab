@@ -1,10 +1,13 @@
+load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
 load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
-load("@npm//@bazel/labs:index.bzl", "ts_proto_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 
 package(default_visibility = ["//visibility:public"])
+
+npm_link_all_packages(name = "node_modules")
 
 # section 2 code added here
 
@@ -37,5 +40,8 @@ java_grpc_library(
 
 ts_proto_library(
     name = "logger_ts_proto",
+    copy_files = False,
+    node_modules = ":node_modules",
     proto = ":logger_proto",
+    proto_srcs = ["logger.proto"],
 )

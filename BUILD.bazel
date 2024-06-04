@@ -1,8 +1,8 @@
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
 package(default_visibility = ["//visibility:public"])
 
-alias(
-    name = "tsconfig.json",
-    actual = "//typescript:tsconfig.json",
-)
+npm_link_all_packages(name = "node_modules")
 
 # section 7 code to add here
