@@ -25,7 +25,7 @@ To do so, rather than `deps`, we will use another kind of query `allpaths`.
 
 For instance, to understand how our java client depends on the Java GRPC packages, one can run
 ```
-bazel query "allpaths(//java/src/main/java/bazel/bootcamp:JavaLoggingClient, @io_grpc_grpc_java//...)" --output=graph
+bazel query "allpaths(//java/src/main/java/bazel/bootcamp:JavaLoggingClient, @grpc-java//...)" --output=graph
 ```
 
 Hence, to see the dependencies between the packages we just wrote,
