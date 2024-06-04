@@ -84,6 +84,13 @@ archive_override(
     urls = "https://github.com/tweag/rules_nixpkgs/archive/927a31fdee00792e4b662c318aef7e52cb2b5580.tar.gz",
 )
 
+# buildifier
+
+bazel_dep(
+    name = "buildifier_prebuilt",
+    version = "6.4.0",
+)
+
 # typescript
 
 bazel_dep(
