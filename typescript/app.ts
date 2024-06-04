@@ -69,16 +69,19 @@ class ServerLogs {
   }
 }
 
-let serverLogs = new ServerLogs();
-let button = document.createElement('button');
-button.textContent = 'Get Server Logs';
-button.onclick =
-    function() {
-  serverLogs.getServerLogs();
+
+window.onload = function () {
+  let serverLogs = new ServerLogs();
+  let button = document.createElement('button');
+  button.textContent = 'Get Server Logs';
+  button.onclick =
+      function() {
+    serverLogs.getServerLogs();
+  }
+
+  let logResultsDiv = document.createElement('div');
+  logResultsDiv.setAttribute('id', 'log_results');
+
+  document.body.appendChild(button);
+  document.body.appendChild(logResultsDiv);
 }
-
-let logResultsDiv = document.createElement('div');
-logResultsDiv.setAttribute('id', 'log_results');
-
-document.body.appendChild(button);
-document.body.appendChild(logResultsDiv);

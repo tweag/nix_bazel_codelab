@@ -4,6 +4,7 @@ This module contains the non-module dependencies used by this codelab.
 
 load("@rules_nixpkgs_go//:go.bzl", "nixpkgs_go_configure")
 load("@rules_nixpkgs_java//:java.bzl", "nixpkgs_java_configure")
+load("@rules_nixpkgs_nodejs//:nodejs.bzl", "nixpkgs_nodejs_configure")
 
 def _non_module_dependencies_impl(_ctx):
     nixpkgs_java_configure(
@@ -17,6 +18,11 @@ def _non_module_dependencies_impl(_ctx):
     )
     nixpkgs_go_configure(
         sdk_name = "go_sdk",
+        repository = Label("@nixpkgs"),
+        register = False,
+    )
+    nixpkgs_nodejs_configure(
+        name = "nixpkgs_nodejs",
         repository = Label("@nixpkgs"),
         register = False,
     )
