@@ -5,4 +5,17 @@ package(default_visibility = ["//visibility:public"])
 
 npm_link_all_packages(name = "node_modules")
 
-# section 7 code to add here
+# section 7 code added here
+
+buildifier(
+    name = "buildifier-print",
+    diff_command = "diff -u",
+    lint_mode = "warn",
+    mode = "diff",
+)
+
+buildifier(
+    name = "buildifier-fix",
+    lint_mode = "fix",
+    mode = "fix",
+)

@@ -1,7 +1,42 @@
 load("@rules_java//java:defs.bzl", "java_binary", "java_library", "java_test")
 
-# section 1 code to add here
+# section 1 code added here
 
-# section 3 code to add here
+java_binary(
+    name = "HelloBazelBootcamp",
+    srcs = ["HelloBazelBootcamp.java"],
+)
 
-# section 4 code to add here
+# section 3 code added here
+
+java_library(
+    name = "JavaLoggingClientLibrary",
+    srcs = ["JavaLoggingClientLibrary.java"],
+    deps = [
+        "//proto/logger:logger_java_grpc",
+        "//proto/logger:logger_java_proto",
+        "@grpc-java//core",
+        "@grpc-java//netty",
+    ],
+)
+
+java_binary(
+    name = "JavaLoggingClient",
+    srcs = ["JavaLoggingClient.java"],
+    visibility = ["//visibility:public"],
+    deps = [":JavaLoggingClientLibrary"],
+)
+
+# section 4 code added here
+
+java_test(
+    name = "JavaLoggingClientLibraryTest",
+    srcs = ["JavaLoggingClientLibraryTest.java"],
+    deps = [":JavaLoggingClientLibrary"],
+)
+
+java_test(
+    name = "JavaLoggingClientTest",
+    srcs = ["JavaLoggingClientTest.java"],
+    deps = [":JavaLoggingClient"],
+)

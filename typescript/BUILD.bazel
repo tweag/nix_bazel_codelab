@@ -10,4 +10,36 @@ http_server_bin.http_server_binary(
     name = "http_server",
 )
 
-# section 5 code to add here
+# section 5 code added here
+
+ts_project(
+    name = "app",
+    srcs = [
+        "app.ts",
+    ],
+    extends = "tsconfig.json",
+    transpiler = "tsc",
+    tsconfig = {
+        "extends": "tsconfig.json",
+    },
+    deps = [
+        "//proto/logger:logger_ts_proto",
+    ],
+)
+
+esbuild(
+    name = "bundle",
+    entry_point = "app.js",
+)
+
+js_run_devserver(
+    name = "devserver",
+    args = ["typescript/"],
+    data = [
+        "app.js",
+        "bundle.js",
+        "bundle.js.map",
+        "index.html",
+    ],
+    tool = ":http_server",
+)

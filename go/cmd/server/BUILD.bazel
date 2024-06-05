@@ -13,4 +13,10 @@ go_library(
     ],
 )
 
-# section 2 code to add here
+# section 2 code added here
+
+go_binary(
+    name = "go-server",
+    embed = [":server_lib"],
+    visibility = ["//visibility:public"],
+)
