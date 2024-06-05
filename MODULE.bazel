@@ -157,9 +157,9 @@ archive_override(
 
 # short term workaround for https://github.com/aspect-build/rules_esbuild/pull/215
 # (See also: https://github.com/NixOS/nixpkgs/issues/289505)
-archive_override(
-    module_name = "aspect_rules_esbuild",
-    integrity = "sha256-2skHEQGvRBB6x/ohwRy5jk0+Y0wbLLgZ9Z0SlY8ZKso=",
-    strip_prefix = "rules_esbuild-e569104846dd35e3f93247ec01dac184e5ea972a",
-    urls = "https://github.com/aspect-build/rules_esbuild/archive/e569104846dd35e3f93247ec01dac184e5ea972a.tar.gz",
-)
+# archive_override(
+#     module_name = "aspect_rules_esbuild",
+#     integrity = "sha256-2skHEQGvRBB6x/ohwRy5jk0+Y0wbLLgZ9Z0SlY8ZKso=",
+#     strip_prefix = "rules_esbuild-e569104846dd35e3f93247ec01dac184e5ea972a",
+#     urls = "https://github.com/aspect-build/rules_esbuild/archive/e569104846dd35e3f93247ec01dac184e5ea972a.tar.gz",
+# )
