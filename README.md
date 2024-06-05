@@ -27,14 +27,21 @@ It has been adapted to
 - Nix shell used to provide developer tools like Bazel itself, see [`shell.nix`](./shell.nix)
 - Nix dependencies pinned under [`nix/`](./nix).
 - Bazel layout
-  - [`WORKSPACE`](./WORKSPACE) defines root of Bazel project and defines external dependencies
-    - Uses `http_archive` to import Bazel dependencies
-    - Uses `nixpkgs_package` to import Nix dependencies into Bazel
-    - Uses other rule sets' dedicated repository rules to import their dependencies, e.g. Go or NodeJS.
+  - [`MODULE.bazel`](./MODULE.bazel) defines root of Bazel project and defines external module dependencies
+    - Uses `bazel_dep` to import Bazel dependencies from the [Bazel Central Registry (BCR)][bcr]
+    - Uses `register_toolchains` to register toolchains from nixpkgs
+    - Uses `use_repo` to bring repositories into scope
+    - Uses other rule sets' dedicated module extensions to import their dependencies, e.g. Go or NodeJS.
+  - [`non_module_dependencies.bzl`](./non_module_dependencies.bzl) contains legacy WORKSPACE rules that are not available as native module extensions
+    - Uses `nixpkgs_*_configure` to create toolchains
+    - Can use `http_archive` to import Bazel dependencies
+    - Can use `nixpkgs_package` to import Nix dependencies into Bazel
+    - Can use other rule sets' dedicated repository rules to import their dependencies
   - `.bazelrc` configures Bazel
   - `BUILD.bazel` files define Bazel packages and targets in that package
 
 [direnv]: https://github.com/direnv/direnv
+[bcr]: https://registry.bazel.build/
 
 ## Check your files against a known solution
 
@@ -53,7 +60,7 @@ A script named `lab` is added to your environment with `nix-shell`, it helps usi
 
 Read up on Bazel [Concepts and Terminology][concepts].
 
-[concepts]: https://docs.bazel.build/versions/4.2.1/build-ref.html
+[concepts]: https://bazel.build/concepts/build-ref
 
 ## Install Nix and enter `nix-shell`
 
@@ -266,6 +273,9 @@ Build a Java client which sends log messages to the server, in the format define
 
 1. Edit `BUILD.bazel`
     1. Add a `load` instruction to import the rule [`buildifier`][buildifier].
+       - NOTE: the documentation linked above assumes the use of the upstream buildifier rules.
+         This project currently depends on a [fork][buildifier_prebuilt] that ships precompiled binaries
+         and is already available as a [Bazel module][buildifier_prebuilt_bcr].
     1. Create a target called `buildifier-print` which warns about lint error and only prints the changes `buildifier` would make.
         - NOTE: Adding such a rule will provide a warning that using `mode = "diff"` is deprecated,
             and suggesting to use a `buildifier_test` rule instead.
@@ -273,6 +283,8 @@ Build a Java client which sends log messages to the server, in the format define
     1. Now create a target called `buildifier-fix` which fixes all the formatting errors (including linting ones).
     1. Run the 2 targets to format your solution to the exercises.
 
+[buildifier_prebuilt]: https://github.com/keith/buildifier-prebuilt
+[buildifier_prebuilt_bcr]: https://registry.bazel.build/modules/buildifier_prebuilt
 [buildifier]: https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md
 [buildifier_test issue]: https://github.com/bazelbuild/buildtools/issues/1075
 
