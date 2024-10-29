@@ -9,6 +9,11 @@ build --tool_java_language_version=19
 # temporary fix for https://github.com/bazelbuild/bazel/issues/16421
 common --jvmopt=-Djava.security.manager=allow
 
+# Force "internal" linkage for Go (remove dependency on ld at link time)
+# See https://github.com/bazel-contrib/rules_go/blob/master/go/modes.rst#build-settings
+# and https://cs.opensource.google/go/go/+/refs/tags/go1.23.2:src/cmd/cgo/doc.go;l=834-873
+build --@rules_go//go/config:pure
+
 build --extra_toolchains=@nixpkgs_java_runtime_toolchain//:all # necessary on nixos only
 
 common --@aspect_rules_ts//ts:skipLibCheck=honor_tsconfig
